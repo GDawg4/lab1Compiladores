@@ -1,0 +1,3 @@
+DIGIT=1
+IDENT=2
+WS=3
