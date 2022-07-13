@@ -9,13 +9,13 @@ else:
 
 class MyGrammerVisitor(ParseTreeVisitor):
 
-    # Visit a parse tree produced by MyGrammerParser#IdentExpr.
-    def visitIdentExpr(self, ctx:MyGrammerParser.IdentExprContext):
+    # Visit a parse tree produced by MyGrammerParser#ProgramExpr.
+    def visitProgramExpr(self, ctx:MyGrammerParser.ProgramExprContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyGrammerParser#DigitExpr.
-    def visitDigitExpr(self, ctx:MyGrammerParser.DigitExprContext):
+    # Visit a parse tree produced by MyGrammerParser#classP.
+    def visitClassP(self, ctx:MyGrammerParser.ClassPContext):
         return self.visitChildren(ctx)
 
 
