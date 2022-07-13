@@ -26,5 +26,68 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyGrammerParser#feature.
+    def enterFeature(self, ctx:MyGrammerParser.FeatureContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#feature.
+    def exitFeature(self, ctx:MyGrammerParser.FeatureContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#feature1.
+    def enterFeature1(self, ctx:MyGrammerParser.Feature1Context):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#feature1.
+    def exitFeature1(self, ctx:MyGrammerParser.Feature1Context):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#feature2.
+    def enterFeature2(self, ctx:MyGrammerParser.Feature2Context):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#feature2.
+    def exitFeature2(self, ctx:MyGrammerParser.Feature2Context):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#formal.
+    def enterFormal(self, ctx:MyGrammerParser.FormalContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#formal.
+    def exitFormal(self, ctx:MyGrammerParser.FormalContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#expr.
+    def enterExpr(self, ctx:MyGrammerParser.ExprContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#expr.
+    def exitExpr(self, ctx:MyGrammerParser.ExprContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#expr2.
+    def enterExpr2(self, ctx:MyGrammerParser.Expr2Context):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#expr2.
+    def exitExpr2(self, ctx:MyGrammerParser.Expr2Context):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#id2.
+    def enterId2(self, ctx:MyGrammerParser.Id2Context):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#id2.
+    def exitId2(self, ctx:MyGrammerParser.Id2Context):
+        pass
+
+
 
 del MyGrammerParser

@@ -22,7 +22,7 @@ class MyVisitor(MyGrammerVisitor):
 
     def visitClassP(self, ctx):
         # return self.visit(ctx.expr())
-        print('ClassP', ctx.asdf.text)
+        print('ClassP')
         return ctx.getText()
 
     def visitFeature(self, ctx):
