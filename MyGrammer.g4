@@ -3,7 +3,7 @@ grammar MyGrammer;
 /*PARSER RULES*/
 program  : meat=classP end=';';
 
-classP   : CLASSKEY TYPE (INHERITSKEY TYPE)? '{' (feature*';')* '}';
+classP   : CLASSKEY TYPE (INHERITSKEY TYPE)? '{' (feature';')* '}';
 
 feature  : ID 
     (
@@ -46,11 +46,11 @@ expr     : (
     ) expr2 (')')?
 ;
 
-expr2    : ((('+' | '-' | '*' | '/' | '<' | '=') expr | ('@' TYPE)? '.' ID '(' (expr (',' expr)*)? ')' ) expr2);
+expr2    : ((('+' | '-' | '*' | '/' | '<' | '=') expr | ('@' TYPE)? '.' ID '(' (expr (',' expr)*)? ')' ) expr2) |;
 
 id2      : 
     ID (('<-' expr)
-    | ('('));
+    | '(' (expr(',' expr)*)?);
 
 
 /*TOKENS & KEYWORDS*/
@@ -103,7 +103,8 @@ FALSEKEY     : F A L S E;
 TRUE         : 'true';
 FALSE        : 'false';
 
-TYPE         : UPPER(LETTERS|DIGIT)+;
+INTEGERS     : DIGIT+;
+TYPE         : UPPER(LETTERS|DIGIT)*;
 
 ID           : (UPPER|LOWER)+;
 ANYSET       : (LETTERS|DIGIT)+;
@@ -114,7 +115,6 @@ DIGIT        : [0-9];
 LOWER        : [a-z];
 UPPER        : [A-Z];
 
-INTEGERS     : DIGIT+;
 LETTERS      : (LOWER|UPPER);
 STRING       : '"' LETTERS* '"';
 

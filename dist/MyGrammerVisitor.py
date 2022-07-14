@@ -9,8 +9,8 @@ else:
 
 class MyGrammerVisitor(ParseTreeVisitor):
 
-    # Visit a parse tree produced by MyGrammerParser#ProgramExpr.
-    def visitProgramExpr(self, ctx:MyGrammerParser.ProgramExprContext):
+    # Visit a parse tree produced by MyGrammerParser#program.
+    def visitProgram(self, ctx:MyGrammerParser.ProgramContext):
         return self.visitChildren(ctx)
 
 

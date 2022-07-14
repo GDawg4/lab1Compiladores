@@ -66,6 +66,5 @@ if __name__ == "__main__":
         # evaluator
         visitor = MyVisitor()
         output = visitor.visit(tree)
-        print(output)
+        print(tree)
         print(Trees.toStringTree(tree, None, parser))
-        print(output)

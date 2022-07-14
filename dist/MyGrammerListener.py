@@ -8,12 +8,12 @@ else:
 # This class defines a complete listener for a parse tree produced by MyGrammerParser.
 class MyGrammerListener(ParseTreeListener):
 
-    # Enter a parse tree produced by MyGrammerParser#ProgramExpr.
-    def enterProgramExpr(self, ctx:MyGrammerParser.ProgramExprContext):
+    # Enter a parse tree produced by MyGrammerParser#program.
+    def enterProgram(self, ctx:MyGrammerParser.ProgramContext):
         pass
 
-    # Exit a parse tree produced by MyGrammerParser#ProgramExpr.
-    def exitProgramExpr(self, ctx:MyGrammerParser.ProgramExprContext):
+    # Exit a parse tree produced by MyGrammerParser#program.
+    def exitProgram(self, ctx:MyGrammerParser.ProgramContext):
         pass
 
 
