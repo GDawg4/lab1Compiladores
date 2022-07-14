@@ -22,31 +22,33 @@ formal   : ID ':' TYPE;
 expr     : (
     id2 
     | 
-    IFKEY 
+    (IFKEY expr THENKEY expr ELSEKEY expr FIKEY)
     | 
-    WHILEKEY 
+    (WHILEKEY expr LOOPEY expr POOLKEY)
     | 
-    LETKEY 
+    (LETKEY ID ':' TYPE ('<-' expr)? (',' ID ':' TYPE ('<-' expr)?)* INKEY expr)
     | 
-    NEWKEY 
+    NEWKEY TYPE
     | 
-    ISVOIDKEY 
+    (ISVOIDKEY expr)
     | 
     NOTKEY 
     | 
-    TRUE 
+    'true' 
     | 
-    FALSE 
+    'false' 
     | 
-    '(' 
+    '(' expr ')'
     | 
     INTEGERS 
     | 
     STRING
+    | ('{' (expr ';')+ '}')
+    | '~' expr
     ) expr2 (')')?
 ;
 
-expr2    : ((('+' | '-' | '*' | '/' | '<' | '=') expr | ('@' TYPE)? '.' ID '(' (expr (',' expr)*)? ')' ) expr2) |;
+expr2    : (('+' | '-' | '*' | '/' | '<' | '='| '<=') expr | ('@' TYPE)? '.' ID '(' (expr (',' expr)*)? ')' ) expr2 |;
 
 id2      : 
     ID (('<-' expr)
@@ -81,7 +83,8 @@ fragment X: [xX];
 fragment Y: [yY];
 fragment Z: [zZ];
 
-WHITESPACE: [ \t\r\n]+ -> skip;
+
+COMMENTS     : (('--' (ANYSET)* [\n]) | ('(*' (ANYSET)*'*)')) -> skip;
 
 IFKEY        : I F;
 LOOPEY       : L O O P;
@@ -97,17 +100,12 @@ NEWKEY       : N E W;
 POOLKEY      : P O O L;
 ISVOIDKEY    : I S V O I D;
 NOTKEY       : N O T;
-TRUEKEY      : T R U E;
-FALSEKEY     : F A L S E;
-
-TRUE         : 'true';
-FALSE        : 'false';
 
 INTEGERS     : DIGIT+;
 TYPE         : UPPER(LETTERS|DIGIT|'_')*;
 
-ID           : (UPPER|LOWER|'_')+;
-ANYSET       : (LETTERS|DIGIT)+;
+
+ID           : (UPPER|LOWER|'_'|DIGIT)+;
 ALPHANUMERIC : (DIGIT|LETTERS);
 OBJECT       : LOWER(LETTERS|DIGIT)+;
 
@@ -116,6 +114,9 @@ LOWER        : [a-z];
 UPPER        : [A-Z];
 
 LETTERS      : (LOWER|UPPER);
-STRING       : '"' LETTERS* '"';
+STRING       : '"' ANYSET* '"';
 
-COMMENTS     : ('--' ANYSET '\n' | '*' ANYSET '*') -> skip;
+
+fragment ANYSET       : (LETTERS|DIGIT|'\''|'.'|'('|')'|':'|','|'*'|'-'|'_'|'>'|'?'|'/'|[ \r]|'='|'\\')+;
+
+WHITESPACE: [ \t\r\n]+ -> skip;

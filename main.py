@@ -56,7 +56,18 @@ class MyVisitor(MyGrammerVisitor):
 
 if __name__ == "__main__":
     while 1:
-        data =  InputStream(input(">>> "))
+        data =  InputStream("""
+class Main inherits IO {
+    main() : SELF_TYPE {
+	{
+	    out_string((new Object).type_name().substr(4,1)).
+	    out_string((isvoid self).type_name().substr(1,3));
+	    out_string("n");
+	}
+    };
+};
+
+        """)
         # lexer
         lexer = MyGrammerLexer(data)
         stream = CommonTokenStream(lexer)
@@ -68,3 +79,4 @@ if __name__ == "__main__":
         output = visitor.visit(tree)
         print(tree)
         print(Trees.toStringTree(tree, None, parser))
+        break
