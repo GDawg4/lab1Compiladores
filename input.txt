@@ -1,69 +1,53 @@
-class A {
+class Main inherits IO {
 
-   var : Int <- 0;
-   value() : Int { var };
+  out : Int <-		-- out is our 'output'.  It's values are the primes.
+    {
+      out_string("2 is trivially prime.\n");
+      2;
+    };
+  
+  testee : Int <- out;	-- testee is a number to be tested for primeness.   
+  divisor : Int;	-- divisor is a number which may factor testee.
+  stop : Int <- 500;  -- stop is an arbitrary value limiting testee.
 
-   set_var(num : Int) : SELF_TYPE {
+  main() : Object {	-- main() is an atrophied method so we can parse. 
+     {
+      while true loop 
       {
-         var <- num;
-         self;
-      }
-   };
 
-   method1(num : Int) : SELF_TYPE {  -- same
-      self
-   };
+        testee <- testee + 1;
+        divisor <- 2;
 
-   method2(num1 : Int, num2 : Int) : B {  -- plus
-      (let x : Int in
-	 {
-            x <- num1 + num2;
-	    (new B).set_var(x);
-	 }
-      )
-   };
+        while 
+          if testee < divisor * divisor 
+            then false 		-- can stop if divisor > sqrt(testee).
+	  else if testee - divisor*(testee/divisor) = 0 
+            then false 		-- can stop if divisor divides testee. 
+            else true
+          fi fi     
+        loop 
+          divisor <- divisor + 1
+        pool;        
 
-   method3(num : Int) : C {  -- negate
-      (let x : Int in
-	 {
-            x <- ~num;
-	    (new C).set_var(x);
-	 }
-      )
-   };
+        if testee < divisor * divisor	-- which reason did we stop for?
+        then 	-- testee has no factors less than sqrt(testee).
+          {
+            out <- testee;	-- we could think of out itself as the output.
+            out_int(out); 
+            out_string(" is prime.\n");
+          }
+        else	-- the loop halted on testee/divisor = 0, testee isnt prime.
+          0	-- testee isnt prime, do nothing.
+	fi;   	
 
-   method4(num1 : Int, num2 : Int) : D {  -- diff
-            if num2 < num1 then
-               (let x : Int in
-		  {
-                     x <- num1 - num2;
-	             (new D).set_var(x);
-	          }
-               )
-            else
-               (let x : Int in
-		  {
-	             x <- num2 - num1;
-	             (new D).set_var(x);
-		  }
-               )
-            fi
-   };
+        if stop <= testee then 
+          "halt".abort()
+        else 
+          "continue"
+        fi;       
 
-   method5(num : Int) : E {  -- factorial
-      (let x : Int <- 1 in
-	 {
-	    (let y : Int <- 1 in
-	       while y <= num loop
-	          {
-                     x <- x * y;
-	             y <- y + 1;
-	          }
-	       pool
-	    );
-	    (new E).set_var(x);
-	 }
-      )
-   };
-
+      } 
+    pool;
+    }
+  };
 };
