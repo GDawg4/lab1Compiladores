@@ -50,7 +50,7 @@ expr2    : ((('+' | '-' | '*' | '/' | '<' | '=') expr | ('@' TYPE)? '.' ID '(' (
 
 id2      : 
     ID (('<-' expr)
-    | '(' (expr(',' expr)*)?);
+    | '(' (expr(',' expr)*)? |);
 
 
 /*TOKENS & KEYWORDS*/
@@ -104,9 +104,9 @@ TRUE         : 'true';
 FALSE        : 'false';
 
 INTEGERS     : DIGIT+;
-TYPE         : UPPER(LETTERS|DIGIT)*;
+TYPE         : UPPER(LETTERS|DIGIT|'_')*;
 
-ID           : (UPPER|LOWER)+;
+ID           : (UPPER|LOWER|'_')+;
 ANYSET       : (LETTERS|DIGIT)+;
 ALPHANUMERIC : (DIGIT|LETTERS);
 OBJECT       : LOWER(LETTERS|DIGIT)+;
