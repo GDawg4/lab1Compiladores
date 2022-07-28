@@ -2,51 +2,74 @@ grammar MyGrammer;
 
 /*PARSER RULES*/
 program  
-    :   meat=classP end=';';
+    :   (meat=classP end=';')+;
 
 classP
-    :   CLASSKEY TYPE (INHERITSKEY TYPE)? '{' (feature)* '}'
+    :   CLASSKEY name=TYPE (INHERITSKEY TYPE)? '{' (feature)* '}'
 ;
 
 feature  
-    :   ID 
-    ( 
-        feature1 
-    |   feature2
+    :   name=ID
+    (
+        method
+    |   attribute
     )
     ';'
 ;
 
-feature1
-    :   '(' (formal (',' formal)*)? ')' ':' TYPE '{' expr '}'
+method
+    :   '(' argumentList=arguments ')' ':' returnType=TYPE '{' mainExpr=expr '}'
 ;
 
-feature2 
-    :   ':' TYPE ('<-' expr)?
+arguments
+    : (formal (',' formal)*)?
+;
+
+attribute
+    :   ':' typeName=TYPE ('<-' expr)?
 ;
 
 formal
-    :   ID ':' TYPE;
+    :   name=ID ':' typeName=TYPE;
 
 expr
-    : 
+    :
     (
-            id2
+            calls=overwrite
         |   (IFKEY expr THENKEY expr ELSEKEY expr FIKEY)
         |   (WHILEKEY expr LOOPKEY expr POOLKEY)
-        |   (LETKEY ID ':' TYPE ('<-' expr)? (',' ID ':' TYPE ('<-' expr)?)* INKEY expr)
-        |   NEWKEY TYPE
+        |   let = letExpr
+        |   newDeclaration = declaration
         |   (ISVOIDKEY expr)
-        |   NOTKEY 
-        |   'true' 
-        |   'false' 
+        |   NOTKEY expr
+        |   'true'
+        |   'false'
         |   '(' expr ')'
-        |   INTEGERS 
+        |   INTEGERS
         |   STRING
-        |   ('{' (expr ';')+ '}')
+        |   innerExpr=multipleExpr
         |   '~' expr
-    ) 
-    expr2 (')')?
+    )
+    nextExpr=expr2
+;
+
+letExpr
+    : (LETKEY initial=initialExpr following=followingExpr INKEY expr)
+;
+initialExpr
+    : name=ID ':' typeName=TYPE ('<-' expr)?
+;
+
+followingExpr
+    : (',' initialExpr)*
+;
+
+declaration
+    : NEWKEY TYPE
+;
+
+multipleExpr
+    : '{' (expr ';')+ '}'
 ;
 
 expr2
@@ -60,22 +83,34 @@ expr2
             |   LOWERTHAN
             |   EQUALS
             |   LOWEREQUAL
-        ) 
-
-        expr 
-        | ('@' TYPE)? '.' ID '(' (expr (',' expr)*)? ')' 
+        )
+        expr
+        | mCall = methodCall
     ) expr2
     |
 ;
 
-id2
+methodCall: ('@' TYPE)? '.' methodName=ID '(' (expr (',' expr)*)? ')'
+;
+
+overwrite
     : 
-        ID 
+        name=ID
     (   
-        ('<-' expr)
-    |   '(' (expr(',' expr)*)? 
+        attr=attrWrite
+    |   fun=funCall
     |
     )
+;
+
+attrWrite
+    :
+        ('<-' expr)
+;
+
+funCall
+    :
+        '(' (expr(',' expr)*)? ')'
 ;
 
 

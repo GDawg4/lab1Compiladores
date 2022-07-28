@@ -35,21 +35,30 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MyGrammerParser#feature1.
-    def enterFeature1(self, ctx:MyGrammerParser.Feature1Context):
+    # Enter a parse tree produced by MyGrammerParser#method.
+    def enterMethod(self, ctx:MyGrammerParser.MethodContext):
         pass
 
-    # Exit a parse tree produced by MyGrammerParser#feature1.
-    def exitFeature1(self, ctx:MyGrammerParser.Feature1Context):
+    # Exit a parse tree produced by MyGrammerParser#method.
+    def exitMethod(self, ctx:MyGrammerParser.MethodContext):
         pass
 
 
-    # Enter a parse tree produced by MyGrammerParser#feature2.
-    def enterFeature2(self, ctx:MyGrammerParser.Feature2Context):
+    # Enter a parse tree produced by MyGrammerParser#arguments.
+    def enterArguments(self, ctx:MyGrammerParser.ArgumentsContext):
         pass
 
-    # Exit a parse tree produced by MyGrammerParser#feature2.
-    def exitFeature2(self, ctx:MyGrammerParser.Feature2Context):
+    # Exit a parse tree produced by MyGrammerParser#arguments.
+    def exitArguments(self, ctx:MyGrammerParser.ArgumentsContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#attribute.
+    def enterAttribute(self, ctx:MyGrammerParser.AttributeContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#attribute.
+    def exitAttribute(self, ctx:MyGrammerParser.AttributeContext):
         pass
 
 
@@ -71,6 +80,51 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyGrammerParser#letExpr.
+    def enterLetExpr(self, ctx:MyGrammerParser.LetExprContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#letExpr.
+    def exitLetExpr(self, ctx:MyGrammerParser.LetExprContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#initialExpr.
+    def enterInitialExpr(self, ctx:MyGrammerParser.InitialExprContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#initialExpr.
+    def exitInitialExpr(self, ctx:MyGrammerParser.InitialExprContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#followingExpr.
+    def enterFollowingExpr(self, ctx:MyGrammerParser.FollowingExprContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#followingExpr.
+    def exitFollowingExpr(self, ctx:MyGrammerParser.FollowingExprContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#declaration.
+    def enterDeclaration(self, ctx:MyGrammerParser.DeclarationContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#declaration.
+    def exitDeclaration(self, ctx:MyGrammerParser.DeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#multipleExpr.
+    def enterMultipleExpr(self, ctx:MyGrammerParser.MultipleExprContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#multipleExpr.
+    def exitMultipleExpr(self, ctx:MyGrammerParser.MultipleExprContext):
+        pass
+
+
     # Enter a parse tree produced by MyGrammerParser#expr2.
     def enterExpr2(self, ctx:MyGrammerParser.Expr2Context):
         pass
@@ -80,12 +134,39 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MyGrammerParser#id2.
-    def enterId2(self, ctx:MyGrammerParser.Id2Context):
+    # Enter a parse tree produced by MyGrammerParser#methodCall.
+    def enterMethodCall(self, ctx:MyGrammerParser.MethodCallContext):
         pass
 
-    # Exit a parse tree produced by MyGrammerParser#id2.
-    def exitId2(self, ctx:MyGrammerParser.Id2Context):
+    # Exit a parse tree produced by MyGrammerParser#methodCall.
+    def exitMethodCall(self, ctx:MyGrammerParser.MethodCallContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#overwrite.
+    def enterOverwrite(self, ctx:MyGrammerParser.OverwriteContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#overwrite.
+    def exitOverwrite(self, ctx:MyGrammerParser.OverwriteContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#attrWrite.
+    def enterAttrWrite(self, ctx:MyGrammerParser.AttrWriteContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#attrWrite.
+    def exitAttrWrite(self, ctx:MyGrammerParser.AttrWriteContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#funCall.
+    def enterFunCall(self, ctx:MyGrammerParser.FunCallContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#funCall.
+    def exitFunCall(self, ctx:MyGrammerParser.FunCallContext):
         pass
 
 
