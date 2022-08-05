@@ -26,7 +26,7 @@ arguments
 ;
 
 attribute
-    :   ':' typeName=TYPE ('<-' expr)?
+    :   ':' typeName=TYPE ('<-' attrExpr=expr)?
 ;
 
 formal
@@ -36,21 +36,45 @@ expr
     :
     (
             calls=overwrite
-        |   (IFKEY expr THENKEY expr ELSEKEY expr FIKEY)
-        |   (WHILEKEY expr LOOPKEY expr POOLKEY)
+        |   stringE = STRING
+        |    ifE = ifExpr
+        |   whileE = whileExpr
         |   let = letExpr
         |   newDeclaration = declaration
-        |   (ISVOIDKEY expr)
-        |   NOTKEY expr
-        |   'true'
-        |   'false'
-        |   '(' expr ')'
-        |   INTEGERS
-        |   STRING
+        |   isVoid = isVoidExpr
+        |   notE = notExpr
+        |   trueE = 'true'
+        |   falseE = 'false'
+        |   parenE = parenExpr
         |   innerExpr=multipleExpr
-        |   '~' expr
+        |   negation = negationExpr
+        |   intE = INTEGERS
     )
     nextExpr=expr2
+;
+
+parenExpr
+    : '(' expr ')'
+;
+
+negationExpr
+    : '~' expr
+;
+
+notExpr
+    : NOTKEY expr
+;
+
+isVoidExpr
+    : (ISVOIDKEY expr)
+;
+
+whileExpr
+    : (WHILEKEY expr LOOPKEY expr POOLKEY)
+;
+
+ifExpr
+    : (IFKEY expr THENKEY expr ELSEKEY expr FIKEY)
 ;
 
 letExpr
@@ -65,7 +89,7 @@ followingExpr
 ;
 
 declaration
-    : NEWKEY TYPE
+    : NEWKEY typeName=TYPE
 ;
 
 multipleExpr
@@ -105,7 +129,7 @@ overwrite
 
 attrWrite
     :
-        ('<-' expr)
+        ('<-' attrInner=expr)
 ;
 
 funCall
@@ -170,14 +194,14 @@ NOTKEY          : N O T;
 
 TYPE            : UPPER(LETTERS|DIGIT|'_')*;
 
-ID              : (UPPER|LOWER|'_'|DIGIT)+;
+INTEGERS        : DIGIT+;
+ID              : LETTERS(UPPER|LOWER|'_'|DIGIT)*;
 OBJECT          : LOWER(LETTERS|DIGIT)+;
 ALPHANUMERIC    : (DIGIT|LETTERS);
 
 DIGIT           : [0-9];
 LOWER           : [a-z];
 UPPER           : [A-Z];
-INTEGERS        : DIGIT+;
 
 LETTERS         : (LOWER|UPPER);
 STRING          : '"' ANYSET* '"';

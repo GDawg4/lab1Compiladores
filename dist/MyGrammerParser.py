@@ -12,95 +12,101 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\60")
-        buf.write("\u00d9\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
+        buf.write("\u00ee\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4\23\t\23")
-        buf.write("\3\2\3\2\3\2\6\2*\n\2\r\2\16\2+\3\3\3\3\3\3\3\3\5\3\62")
-        buf.write("\n\3\3\3\3\3\7\3\66\n\3\f\3\16\39\13\3\3\3\3\3\3\4\3\4")
-        buf.write("\3\4\5\4@\n\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5")
-        buf.write("\3\5\3\6\3\6\3\6\7\6P\n\6\f\6\16\6S\13\6\5\6U\n\6\3\7")
-        buf.write("\3\7\3\7\3\7\5\7[\n\7\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t")
-        buf.write("\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3")
-        buf.write("\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t")
-        buf.write("\3\t\5\t\u0081\n\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n\3\13")
-        buf.write("\3\13\3\13\3\13\3\13\5\13\u0090\n\13\3\f\3\f\7\f\u0094")
-        buf.write("\n\f\f\f\16\f\u0097\13\f\3\r\3\r\3\r\3\16\3\16\3\16\3")
-        buf.write("\16\6\16\u00a0\n\16\r\16\16\16\u00a1\3\16\3\16\3\17\3")
-        buf.write("\17\3\17\5\17\u00a9\n\17\3\17\3\17\3\17\5\17\u00ae\n\17")
-        buf.write("\3\20\3\20\5\20\u00b2\n\20\3\20\3\20\3\20\3\20\3\20\3")
-        buf.write("\20\7\20\u00ba\n\20\f\20\16\20\u00bd\13\20\5\20\u00bf")
-        buf.write("\n\20\3\20\3\20\3\21\3\21\3\21\3\21\5\21\u00c7\n\21\3")
-        buf.write("\22\3\22\3\22\3\23\3\23\3\23\3\23\7\23\u00d0\n\23\f\23")
-        buf.write("\16\23\u00d3\13\23\5\23\u00d5\n\23\3\23\3\23\3\23\2\2")
-        buf.write("\24\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$\2\3\3\2")
-        buf.write("\21\27\2\u00e6\2)\3\2\2\2\4-\3\2\2\2\6<\3\2\2\2\bC\3\2")
-        buf.write("\2\2\nT\3\2\2\2\fV\3\2\2\2\16\\\3\2\2\2\20\u0080\3\2\2")
-        buf.write("\2\22\u0084\3\2\2\2\24\u008a\3\2\2\2\26\u0095\3\2\2\2")
-        buf.write("\30\u0098\3\2\2\2\32\u009b\3\2\2\2\34\u00ad\3\2\2\2\36")
-        buf.write("\u00b1\3\2\2\2 \u00c2\3\2\2\2\"\u00c8\3\2\2\2$\u00cb\3")
-        buf.write("\2\2\2&\'\5\4\3\2\'(\7\3\2\2(*\3\2\2\2)&\3\2\2\2*+\3\2")
-        buf.write("\2\2+)\3\2\2\2+,\3\2\2\2,\3\3\2\2\2-.\7\35\2\2.\61\7&")
-        buf.write("\2\2/\60\7\36\2\2\60\62\7&\2\2\61/\3\2\2\2\61\62\3\2\2")
-        buf.write("\2\62\63\3\2\2\2\63\67\7\4\2\2\64\66\5\6\4\2\65\64\3\2")
-        buf.write("\2\2\669\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28:\3\2\2\29")
-        buf.write("\67\3\2\2\2:;\7\5\2\2;\5\3\2\2\2<?\7\'\2\2=@\5\b\5\2>")
-        buf.write("@\5\f\7\2?=\3\2\2\2?>\3\2\2\2@A\3\2\2\2AB\7\3\2\2B\7\3")
-        buf.write("\2\2\2CD\7\6\2\2DE\5\n\6\2EF\7\7\2\2FG\7\b\2\2GH\7&\2")
-        buf.write("\2HI\7\4\2\2IJ\5\20\t\2JK\7\5\2\2K\t\3\2\2\2LQ\5\16\b")
-        buf.write("\2MN\7\t\2\2NP\5\16\b\2OM\3\2\2\2PS\3\2\2\2QO\3\2\2\2")
-        buf.write("QR\3\2\2\2RU\3\2\2\2SQ\3\2\2\2TL\3\2\2\2TU\3\2\2\2U\13")
-        buf.write("\3\2\2\2VW\7\b\2\2WZ\7&\2\2XY\7\n\2\2Y[\5\20\t\2ZX\3\2")
-        buf.write("\2\2Z[\3\2\2\2[\r\3\2\2\2\\]\7\'\2\2]^\7\b\2\2^_\7&\2")
-        buf.write("\2_\17\3\2\2\2`\u0081\5 \21\2ab\7\30\2\2bc\5\20\t\2cd")
-        buf.write("\7\33\2\2de\5\20\t\2ef\7\32\2\2fg\5\20\t\2gh\7\37\2\2")
-        buf.write("h\u0081\3\2\2\2ij\7\34\2\2jk\5\20\t\2kl\7\31\2\2lm\5\20")
-        buf.write("\t\2mn\7#\2\2n\u0081\3\2\2\2o\u0081\5\22\n\2p\u0081\5")
-        buf.write("\30\r\2qr\7$\2\2r\u0081\5\20\t\2st\7%\2\2t\u0081\5\20")
-        buf.write("\t\2u\u0081\7\13\2\2v\u0081\7\f\2\2wx\7\6\2\2xy\5\20\t")
-        buf.write("\2yz\7\7\2\2z\u0081\3\2\2\2{\u0081\7-\2\2|\u0081\7/\2")
-        buf.write("\2}\u0081\5\32\16\2~\177\7\r\2\2\177\u0081\5\20\t\2\u0080")
-        buf.write("`\3\2\2\2\u0080a\3\2\2\2\u0080i\3\2\2\2\u0080o\3\2\2\2")
-        buf.write("\u0080p\3\2\2\2\u0080q\3\2\2\2\u0080s\3\2\2\2\u0080u\3")
-        buf.write("\2\2\2\u0080v\3\2\2\2\u0080w\3\2\2\2\u0080{\3\2\2\2\u0080")
-        buf.write("|\3\2\2\2\u0080}\3\2\2\2\u0080~\3\2\2\2\u0081\u0082\3")
-        buf.write("\2\2\2\u0082\u0083\5\34\17\2\u0083\21\3\2\2\2\u0084\u0085")
-        buf.write("\7!\2\2\u0085\u0086\5\24\13\2\u0086\u0087\5\26\f\2\u0087")
-        buf.write("\u0088\7 \2\2\u0088\u0089\5\20\t\2\u0089\23\3\2\2\2\u008a")
-        buf.write("\u008b\7\'\2\2\u008b\u008c\7\b\2\2\u008c\u008f\7&\2\2")
-        buf.write("\u008d\u008e\7\n\2\2\u008e\u0090\5\20\t\2\u008f\u008d")
-        buf.write("\3\2\2\2\u008f\u0090\3\2\2\2\u0090\25\3\2\2\2\u0091\u0092")
-        buf.write("\7\t\2\2\u0092\u0094\5\24\13\2\u0093\u0091\3\2\2\2\u0094")
-        buf.write("\u0097\3\2\2\2\u0095\u0093\3\2\2\2\u0095\u0096\3\2\2\2")
-        buf.write("\u0096\27\3\2\2\2\u0097\u0095\3\2\2\2\u0098\u0099\7\"")
-        buf.write("\2\2\u0099\u009a\7&\2\2\u009a\31\3\2\2\2\u009b\u009f\7")
-        buf.write("\4\2\2\u009c\u009d\5\20\t\2\u009d\u009e\7\3\2\2\u009e")
-        buf.write("\u00a0\3\2\2\2\u009f\u009c\3\2\2\2\u00a0\u00a1\3\2\2\2")
-        buf.write("\u00a1\u009f\3\2\2\2\u00a1\u00a2\3\2\2\2\u00a2\u00a3\3")
-        buf.write("\2\2\2\u00a3\u00a4\7\5\2\2\u00a4\33\3\2\2\2\u00a5\u00a6")
-        buf.write("\t\2\2\2\u00a6\u00a9\5\20\t\2\u00a7\u00a9\5\36\20\2\u00a8")
-        buf.write("\u00a5\3\2\2\2\u00a8\u00a7\3\2\2\2\u00a9\u00aa\3\2\2\2")
-        buf.write("\u00aa\u00ab\5\34\17\2\u00ab\u00ae\3\2\2\2\u00ac\u00ae")
-        buf.write("\3\2\2\2\u00ad\u00a8\3\2\2\2\u00ad\u00ac\3\2\2\2\u00ae")
-        buf.write("\35\3\2\2\2\u00af\u00b0\7\16\2\2\u00b0\u00b2\7&\2\2\u00b1")
-        buf.write("\u00af\3\2\2\2\u00b1\u00b2\3\2\2\2\u00b2\u00b3\3\2\2\2")
-        buf.write("\u00b3\u00b4\7\17\2\2\u00b4\u00b5\7\'\2\2\u00b5\u00be")
-        buf.write("\7\6\2\2\u00b6\u00bb\5\20\t\2\u00b7\u00b8\7\t\2\2\u00b8")
-        buf.write("\u00ba\5\20\t\2\u00b9\u00b7\3\2\2\2\u00ba\u00bd\3\2\2")
-        buf.write("\2\u00bb\u00b9\3\2\2\2\u00bb\u00bc\3\2\2\2\u00bc\u00bf")
-        buf.write("\3\2\2\2\u00bd\u00bb\3\2\2\2\u00be\u00b6\3\2\2\2\u00be")
-        buf.write("\u00bf\3\2\2\2\u00bf\u00c0\3\2\2\2\u00c0\u00c1\7\7\2\2")
-        buf.write("\u00c1\37\3\2\2\2\u00c2\u00c6\7\'\2\2\u00c3\u00c7\5\"")
-        buf.write("\22\2\u00c4\u00c7\5$\23\2\u00c5\u00c7\3\2\2\2\u00c6\u00c3")
-        buf.write("\3\2\2\2\u00c6\u00c4\3\2\2\2\u00c6\u00c5\3\2\2\2\u00c7")
-        buf.write("!\3\2\2\2\u00c8\u00c9\7\n\2\2\u00c9\u00ca\5\20\t\2\u00ca")
-        buf.write("#\3\2\2\2\u00cb\u00d4\7\6\2\2\u00cc\u00d1\5\20\t\2\u00cd")
-        buf.write("\u00ce\7\t\2\2\u00ce\u00d0\5\20\t\2\u00cf\u00cd\3\2\2")
-        buf.write("\2\u00d0\u00d3\3\2\2\2\u00d1\u00cf\3\2\2\2\u00d1\u00d2")
-        buf.write("\3\2\2\2\u00d2\u00d5\3\2\2\2\u00d3\u00d1\3\2\2\2\u00d4")
-        buf.write("\u00cc\3\2\2\2\u00d4\u00d5\3\2\2\2\u00d5\u00d6\3\2\2\2")
-        buf.write("\u00d6\u00d7\7\7\2\2\u00d7%\3\2\2\2\25+\61\67?QTZ\u0080")
-        buf.write("\u008f\u0095\u00a1\u00a8\u00ad\u00b1\u00bb\u00be\u00c6")
-        buf.write("\u00d1\u00d4")
+        buf.write("\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31")
+        buf.write("\t\31\3\2\3\2\3\2\6\2\66\n\2\r\2\16\2\67\3\3\3\3\3\3\3")
+        buf.write("\3\5\3>\n\3\3\3\3\3\7\3B\n\3\f\3\16\3E\13\3\3\3\3\3\3")
+        buf.write("\4\3\4\3\4\5\4L\n\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3")
+        buf.write("\5\3\5\3\5\3\6\3\6\3\6\7\6\\\n\6\f\6\16\6_\13\6\5\6a\n")
+        buf.write("\6\3\7\3\7\3\7\3\7\5\7g\n\7\3\b\3\b\3\b\3\b\3\t\3\t\3")
+        buf.write("\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\t{\n")
+        buf.write("\t\3\t\3\t\3\n\3\n\3\n\3\n\3\13\3\13\3\13\3\f\3\f\3\f")
+        buf.write("\3\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\16\3\17\3\17\3")
+        buf.write("\17\3\17\3\17\3\17\3\17\3\17\3\20\3\20\3\20\3\20\3\20")
+        buf.write("\3\20\3\21\3\21\3\21\3\21\3\21\5\21\u00a5\n\21\3\22\3")
+        buf.write("\22\7\22\u00a9\n\22\f\22\16\22\u00ac\13\22\3\23\3\23\3")
+        buf.write("\23\3\24\3\24\3\24\3\24\6\24\u00b5\n\24\r\24\16\24\u00b6")
+        buf.write("\3\24\3\24\3\25\3\25\3\25\5\25\u00be\n\25\3\25\3\25\3")
+        buf.write("\25\5\25\u00c3\n\25\3\26\3\26\5\26\u00c7\n\26\3\26\3\26")
+        buf.write("\3\26\3\26\3\26\3\26\7\26\u00cf\n\26\f\26\16\26\u00d2")
+        buf.write("\13\26\5\26\u00d4\n\26\3\26\3\26\3\27\3\27\3\27\3\27\5")
+        buf.write("\27\u00dc\n\27\3\30\3\30\3\30\3\31\3\31\3\31\3\31\7\31")
+        buf.write("\u00e5\n\31\f\31\16\31\u00e8\13\31\5\31\u00ea\n\31\3\31")
+        buf.write("\3\31\3\31\2\2\32\2\4\6\b\n\f\16\20\22\24\26\30\32\34")
+        buf.write("\36 \"$&(*,.\60\2\3\3\2\21\27\2\u00f5\2\65\3\2\2\2\49")
+        buf.write("\3\2\2\2\6H\3\2\2\2\bO\3\2\2\2\n`\3\2\2\2\fb\3\2\2\2\16")
+        buf.write("h\3\2\2\2\20z\3\2\2\2\22~\3\2\2\2\24\u0082\3\2\2\2\26")
+        buf.write("\u0085\3\2\2\2\30\u0088\3\2\2\2\32\u008b\3\2\2\2\34\u0091")
+        buf.write("\3\2\2\2\36\u0099\3\2\2\2 \u009f\3\2\2\2\"\u00aa\3\2\2")
+        buf.write("\2$\u00ad\3\2\2\2&\u00b0\3\2\2\2(\u00c2\3\2\2\2*\u00c6")
+        buf.write("\3\2\2\2,\u00d7\3\2\2\2.\u00dd\3\2\2\2\60\u00e0\3\2\2")
+        buf.write("\2\62\63\5\4\3\2\63\64\7\3\2\2\64\66\3\2\2\2\65\62\3\2")
+        buf.write("\2\2\66\67\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28\3\3\2\2")
+        buf.write("\29:\7\35\2\2:=\7&\2\2;<\7\36\2\2<>\7&\2\2=;\3\2\2\2=")
+        buf.write(">\3\2\2\2>?\3\2\2\2?C\7\4\2\2@B\5\6\4\2A@\3\2\2\2BE\3")
+        buf.write("\2\2\2CA\3\2\2\2CD\3\2\2\2DF\3\2\2\2EC\3\2\2\2FG\7\5\2")
+        buf.write("\2G\5\3\2\2\2HK\7(\2\2IL\5\b\5\2JL\5\f\7\2KI\3\2\2\2K")
+        buf.write("J\3\2\2\2LM\3\2\2\2MN\7\3\2\2N\7\3\2\2\2OP\7\6\2\2PQ\5")
+        buf.write("\n\6\2QR\7\7\2\2RS\7\b\2\2ST\7&\2\2TU\7\4\2\2UV\5\20\t")
+        buf.write("\2VW\7\5\2\2W\t\3\2\2\2X]\5\16\b\2YZ\7\t\2\2Z\\\5\16\b")
+        buf.write("\2[Y\3\2\2\2\\_\3\2\2\2][\3\2\2\2]^\3\2\2\2^a\3\2\2\2")
+        buf.write("_]\3\2\2\2`X\3\2\2\2`a\3\2\2\2a\13\3\2\2\2bc\7\b\2\2c")
+        buf.write("f\7&\2\2de\7\n\2\2eg\5\20\t\2fd\3\2\2\2fg\3\2\2\2g\r\3")
+        buf.write("\2\2\2hi\7(\2\2ij\7\b\2\2jk\7&\2\2k\17\3\2\2\2l{\5,\27")
+        buf.write("\2m{\7/\2\2n{\5\34\17\2o{\5\32\16\2p{\5\36\20\2q{\5$\23")
+        buf.write("\2r{\5\30\r\2s{\5\26\f\2t{\7\13\2\2u{\7\f\2\2v{\5\22\n")
+        buf.write("\2w{\5&\24\2x{\5\24\13\2y{\7\'\2\2zl\3\2\2\2zm\3\2\2\2")
+        buf.write("zn\3\2\2\2zo\3\2\2\2zp\3\2\2\2zq\3\2\2\2zr\3\2\2\2zs\3")
+        buf.write("\2\2\2zt\3\2\2\2zu\3\2\2\2zv\3\2\2\2zw\3\2\2\2zx\3\2\2")
+        buf.write("\2zy\3\2\2\2{|\3\2\2\2|}\5(\25\2}\21\3\2\2\2~\177\7\6")
+        buf.write("\2\2\177\u0080\5\20\t\2\u0080\u0081\7\7\2\2\u0081\23\3")
+        buf.write("\2\2\2\u0082\u0083\7\r\2\2\u0083\u0084\5\20\t\2\u0084")
+        buf.write("\25\3\2\2\2\u0085\u0086\7%\2\2\u0086\u0087\5\20\t\2\u0087")
+        buf.write("\27\3\2\2\2\u0088\u0089\7$\2\2\u0089\u008a\5\20\t\2\u008a")
+        buf.write("\31\3\2\2\2\u008b\u008c\7\34\2\2\u008c\u008d\5\20\t\2")
+        buf.write("\u008d\u008e\7\31\2\2\u008e\u008f\5\20\t\2\u008f\u0090")
+        buf.write("\7#\2\2\u0090\33\3\2\2\2\u0091\u0092\7\30\2\2\u0092\u0093")
+        buf.write("\5\20\t\2\u0093\u0094\7\33\2\2\u0094\u0095\5\20\t\2\u0095")
+        buf.write("\u0096\7\32\2\2\u0096\u0097\5\20\t\2\u0097\u0098\7\37")
+        buf.write("\2\2\u0098\35\3\2\2\2\u0099\u009a\7!\2\2\u009a\u009b\5")
+        buf.write(" \21\2\u009b\u009c\5\"\22\2\u009c\u009d\7 \2\2\u009d\u009e")
+        buf.write("\5\20\t\2\u009e\37\3\2\2\2\u009f\u00a0\7(\2\2\u00a0\u00a1")
+        buf.write("\7\b\2\2\u00a1\u00a4\7&\2\2\u00a2\u00a3\7\n\2\2\u00a3")
+        buf.write("\u00a5\5\20\t\2\u00a4\u00a2\3\2\2\2\u00a4\u00a5\3\2\2")
+        buf.write("\2\u00a5!\3\2\2\2\u00a6\u00a7\7\t\2\2\u00a7\u00a9\5 \21")
+        buf.write("\2\u00a8\u00a6\3\2\2\2\u00a9\u00ac\3\2\2\2\u00aa\u00a8")
+        buf.write("\3\2\2\2\u00aa\u00ab\3\2\2\2\u00ab#\3\2\2\2\u00ac\u00aa")
+        buf.write("\3\2\2\2\u00ad\u00ae\7\"\2\2\u00ae\u00af\7&\2\2\u00af")
+        buf.write("%\3\2\2\2\u00b0\u00b4\7\4\2\2\u00b1\u00b2\5\20\t\2\u00b2")
+        buf.write("\u00b3\7\3\2\2\u00b3\u00b5\3\2\2\2\u00b4\u00b1\3\2\2\2")
+        buf.write("\u00b5\u00b6\3\2\2\2\u00b6\u00b4\3\2\2\2\u00b6\u00b7\3")
+        buf.write("\2\2\2\u00b7\u00b8\3\2\2\2\u00b8\u00b9\7\5\2\2\u00b9\'")
+        buf.write("\3\2\2\2\u00ba\u00bb\t\2\2\2\u00bb\u00be\5\20\t\2\u00bc")
+        buf.write("\u00be\5*\26\2\u00bd\u00ba\3\2\2\2\u00bd\u00bc\3\2\2\2")
+        buf.write("\u00be\u00bf\3\2\2\2\u00bf\u00c0\5(\25\2\u00c0\u00c3\3")
+        buf.write("\2\2\2\u00c1\u00c3\3\2\2\2\u00c2\u00bd\3\2\2\2\u00c2\u00c1")
+        buf.write("\3\2\2\2\u00c3)\3\2\2\2\u00c4\u00c5\7\16\2\2\u00c5\u00c7")
+        buf.write("\7&\2\2\u00c6\u00c4\3\2\2\2\u00c6\u00c7\3\2\2\2\u00c7")
+        buf.write("\u00c8\3\2\2\2\u00c8\u00c9\7\17\2\2\u00c9\u00ca\7(\2\2")
+        buf.write("\u00ca\u00d3\7\6\2\2\u00cb\u00d0\5\20\t\2\u00cc\u00cd")
+        buf.write("\7\t\2\2\u00cd\u00cf\5\20\t\2\u00ce\u00cc\3\2\2\2\u00cf")
+        buf.write("\u00d2\3\2\2\2\u00d0\u00ce\3\2\2\2\u00d0\u00d1\3\2\2\2")
+        buf.write("\u00d1\u00d4\3\2\2\2\u00d2\u00d0\3\2\2\2\u00d3\u00cb\3")
+        buf.write("\2\2\2\u00d3\u00d4\3\2\2\2\u00d4\u00d5\3\2\2\2\u00d5\u00d6")
+        buf.write("\7\7\2\2\u00d6+\3\2\2\2\u00d7\u00db\7(\2\2\u00d8\u00dc")
+        buf.write("\5.\30\2\u00d9\u00dc\5\60\31\2\u00da\u00dc\3\2\2\2\u00db")
+        buf.write("\u00d8\3\2\2\2\u00db\u00d9\3\2\2\2\u00db\u00da\3\2\2\2")
+        buf.write("\u00dc-\3\2\2\2\u00dd\u00de\7\n\2\2\u00de\u00df\5\20\t")
+        buf.write("\2\u00df/\3\2\2\2\u00e0\u00e9\7\6\2\2\u00e1\u00e6\5\20")
+        buf.write("\t\2\u00e2\u00e3\7\t\2\2\u00e3\u00e5\5\20\t\2\u00e4\u00e2")
+        buf.write("\3\2\2\2\u00e5\u00e8\3\2\2\2\u00e6\u00e4\3\2\2\2\u00e6")
+        buf.write("\u00e7\3\2\2\2\u00e7\u00ea\3\2\2\2\u00e8\u00e6\3\2\2\2")
+        buf.write("\u00e9\u00e1\3\2\2\2\u00e9\u00ea\3\2\2\2\u00ea\u00eb\3")
+        buf.write("\2\2\2\u00eb\u00ec\7\7\2\2\u00ec\61\3\2\2\2\25\67=CK]")
+        buf.write("`fz\u00a4\u00aa\u00b6\u00bd\u00c2\u00c6\u00d0\u00d3\u00db")
+        buf.write("\u00e6\u00e9")
         return buf.getvalue()
 
 
@@ -127,8 +133,8 @@ class MyGrammerParser ( Parser ):
                       "IFKEY", "LOOPKEY", "ELSEKEY", "THENKEY", "WHILEKEY", 
                       "CLASSKEY", "INHERITSKEY", "FIKEY", "INKEY", "LETKEY", 
                       "NEWKEY", "POOLKEY", "ISVOIDKEY", "NOTKEY", "TYPE", 
-                      "ID", "OBJECT", "ALPHANUMERIC", "DIGIT", "LOWER", 
-                      "UPPER", "INTEGERS", "LETTERS", "STRING", "WHITESPACE" ]
+                      "INTEGERS", "ID", "OBJECT", "ALPHANUMERIC", "DIGIT", 
+                      "LOWER", "UPPER", "LETTERS", "STRING", "WHITESPACE" ]
 
     RULE_program = 0
     RULE_classP = 1
@@ -138,21 +144,28 @@ class MyGrammerParser ( Parser ):
     RULE_attribute = 5
     RULE_formal = 6
     RULE_expr = 7
-    RULE_letExpr = 8
-    RULE_initialExpr = 9
-    RULE_followingExpr = 10
-    RULE_declaration = 11
-    RULE_multipleExpr = 12
-    RULE_expr2 = 13
-    RULE_methodCall = 14
-    RULE_overwrite = 15
-    RULE_attrWrite = 16
-    RULE_funCall = 17
+    RULE_parenExpr = 8
+    RULE_negationExpr = 9
+    RULE_notExpr = 10
+    RULE_isVoidExpr = 11
+    RULE_whileExpr = 12
+    RULE_ifExpr = 13
+    RULE_letExpr = 14
+    RULE_initialExpr = 15
+    RULE_followingExpr = 16
+    RULE_declaration = 17
+    RULE_multipleExpr = 18
+    RULE_expr2 = 19
+    RULE_methodCall = 20
+    RULE_overwrite = 21
+    RULE_attrWrite = 22
+    RULE_funCall = 23
 
     ruleNames =  [ "program", "classP", "feature", "method", "arguments", 
-                   "attribute", "formal", "expr", "letExpr", "initialExpr", 
-                   "followingExpr", "declaration", "multipleExpr", "expr2", 
-                   "methodCall", "overwrite", "attrWrite", "funCall" ]
+                   "attribute", "formal", "expr", "parenExpr", "negationExpr", 
+                   "notExpr", "isVoidExpr", "whileExpr", "ifExpr", "letExpr", 
+                   "initialExpr", "followingExpr", "declaration", "multipleExpr", 
+                   "expr2", "methodCall", "overwrite", "attrWrite", "funCall" ]
 
     EOF = Token.EOF
     T__0=1
@@ -191,13 +204,13 @@ class MyGrammerParser ( Parser ):
     ISVOIDKEY=34
     NOTKEY=35
     TYPE=36
-    ID=37
-    OBJECT=38
-    ALPHANUMERIC=39
-    DIGIT=40
-    LOWER=41
-    UPPER=42
-    INTEGERS=43
+    INTEGERS=37
+    ID=38
+    OBJECT=39
+    ALPHANUMERIC=40
+    DIGIT=41
+    LOWER=42
+    UPPER=43
     LETTERS=44
     STRING=45
     WHITESPACE=46
@@ -254,15 +267,15 @@ class MyGrammerParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 39 
+            self.state = 51 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 36
+                self.state = 48
                 localctx.meat = self.classP()
-                self.state = 37
+                self.state = 49
                 localctx.end = self.match(MyGrammerParser.T__0)
-                self.state = 41 
+                self.state = 53 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==MyGrammerParser.CLASSKEY):
@@ -331,33 +344,33 @@ class MyGrammerParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 43
+            self.state = 55
             self.match(MyGrammerParser.CLASSKEY)
-            self.state = 44
+            self.state = 56
             localctx.name = self.match(MyGrammerParser.TYPE)
-            self.state = 47
+            self.state = 59
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==MyGrammerParser.INHERITSKEY:
-                self.state = 45
+                self.state = 57
                 self.match(MyGrammerParser.INHERITSKEY)
-                self.state = 46
+                self.state = 58
                 self.match(MyGrammerParser.TYPE)
 
 
-            self.state = 49
+            self.state = 61
             self.match(MyGrammerParser.T__1)
-            self.state = 53
+            self.state = 65
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==MyGrammerParser.ID:
-                self.state = 50
+                self.state = 62
                 self.feature()
-                self.state = 55
+                self.state = 67
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 56
+            self.state = 68
             self.match(MyGrammerParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
@@ -413,23 +426,23 @@ class MyGrammerParser ( Parser ):
         self.enterRule(localctx, 4, self.RULE_feature)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 58
+            self.state = 70
             localctx.name = self.match(MyGrammerParser.ID)
-            self.state = 61
+            self.state = 73
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [MyGrammerParser.T__3]:
-                self.state = 59
+                self.state = 71
                 self.method()
                 pass
             elif token in [MyGrammerParser.T__5]:
-                self.state = 60
+                self.state = 72
                 self.attribute()
                 pass
             else:
                 raise NoViableAltException(self)
 
-            self.state = 63
+            self.state = 75
             self.match(MyGrammerParser.T__0)
         except RecognitionException as re:
             localctx.exception = re
@@ -487,21 +500,21 @@ class MyGrammerParser ( Parser ):
         self.enterRule(localctx, 6, self.RULE_method)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 65
+            self.state = 77
             self.match(MyGrammerParser.T__3)
-            self.state = 66
+            self.state = 78
             localctx.argumentList = self.arguments()
-            self.state = 67
+            self.state = 79
             self.match(MyGrammerParser.T__4)
-            self.state = 68
+            self.state = 80
             self.match(MyGrammerParser.T__5)
-            self.state = 69
+            self.state = 81
             localctx.returnType = self.match(MyGrammerParser.TYPE)
-            self.state = 70
+            self.state = 82
             self.match(MyGrammerParser.T__1)
-            self.state = 71
+            self.state = 83
             localctx.mainExpr = self.expr()
-            self.state = 72
+            self.state = 84
             self.match(MyGrammerParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
@@ -553,21 +566,21 @@ class MyGrammerParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 82
+            self.state = 94
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==MyGrammerParser.ID:
-                self.state = 74
+                self.state = 86
                 self.formal()
-                self.state = 79
+                self.state = 91
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==MyGrammerParser.T__6:
-                    self.state = 75
+                    self.state = 87
                     self.match(MyGrammerParser.T__6)
-                    self.state = 76
+                    self.state = 88
                     self.formal()
-                    self.state = 81
+                    self.state = 93
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
@@ -589,6 +602,7 @@ class MyGrammerParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.typeName = None # Token
+            self.attrExpr = None # ExprContext
 
         def TYPE(self):
             return self.getToken(MyGrammerParser.TYPE, 0)
@@ -624,18 +638,18 @@ class MyGrammerParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 84
+            self.state = 96
             self.match(MyGrammerParser.T__5)
-            self.state = 85
+            self.state = 97
             localctx.typeName = self.match(MyGrammerParser.TYPE)
-            self.state = 88
+            self.state = 100
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==MyGrammerParser.T__7:
-                self.state = 86
+                self.state = 98
                 self.match(MyGrammerParser.T__7)
-                self.state = 87
-                self.expr()
+                self.state = 99
+                localctx.attrExpr = self.expr()
 
 
         except RecognitionException as re:
@@ -688,11 +702,11 @@ class MyGrammerParser ( Parser ):
         self.enterRule(localctx, 12, self.RULE_formal)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 90
+            self.state = 102
             localctx.name = self.match(MyGrammerParser.ID)
-            self.state = 91
+            self.state = 103
             self.match(MyGrammerParser.T__5)
-            self.state = 92
+            self.state = 104
             localctx.typeName = self.match(MyGrammerParser.TYPE)
         except RecognitionException as re:
             localctx.exception = re
@@ -710,33 +724,38 @@ class MyGrammerParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.calls = None # OverwriteContext
+            self.stringE = None # Token
+            self.ifE = None # IfExprContext
+            self.whileE = None # WhileExprContext
             self.let = None # LetExprContext
             self.newDeclaration = None # DeclarationContext
+            self.isVoid = None # IsVoidExprContext
+            self.notE = None # NotExprContext
+            self.trueE = None # Token
+            self.falseE = None # Token
+            self.parenE = None # ParenExprContext
             self.innerExpr = None # MultipleExprContext
+            self.negation = None # NegationExprContext
+            self.intE = None # Token
             self.nextExpr = None # Expr2Context
 
         def expr2(self):
             return self.getTypedRuleContext(MyGrammerParser.Expr2Context,0)
 
 
-        def NOTKEY(self):
-            return self.getToken(MyGrammerParser.NOTKEY, 0)
+        def overwrite(self):
+            return self.getTypedRuleContext(MyGrammerParser.OverwriteContext,0)
 
-        def expr(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(MyGrammerParser.ExprContext)
-            else:
-                return self.getTypedRuleContext(MyGrammerParser.ExprContext,i)
-
-
-        def INTEGERS(self):
-            return self.getToken(MyGrammerParser.INTEGERS, 0)
 
         def STRING(self):
             return self.getToken(MyGrammerParser.STRING, 0)
 
-        def overwrite(self):
-            return self.getTypedRuleContext(MyGrammerParser.OverwriteContext,0)
+        def ifExpr(self):
+            return self.getTypedRuleContext(MyGrammerParser.IfExprContext,0)
+
+
+        def whileExpr(self):
+            return self.getTypedRuleContext(MyGrammerParser.WhileExprContext,0)
 
 
         def letExpr(self):
@@ -747,33 +766,28 @@ class MyGrammerParser ( Parser ):
             return self.getTypedRuleContext(MyGrammerParser.DeclarationContext,0)
 
 
+        def isVoidExpr(self):
+            return self.getTypedRuleContext(MyGrammerParser.IsVoidExprContext,0)
+
+
+        def notExpr(self):
+            return self.getTypedRuleContext(MyGrammerParser.NotExprContext,0)
+
+
+        def parenExpr(self):
+            return self.getTypedRuleContext(MyGrammerParser.ParenExprContext,0)
+
+
         def multipleExpr(self):
             return self.getTypedRuleContext(MyGrammerParser.MultipleExprContext,0)
 
 
-        def IFKEY(self):
-            return self.getToken(MyGrammerParser.IFKEY, 0)
+        def negationExpr(self):
+            return self.getTypedRuleContext(MyGrammerParser.NegationExprContext,0)
 
-        def THENKEY(self):
-            return self.getToken(MyGrammerParser.THENKEY, 0)
 
-        def ELSEKEY(self):
-            return self.getToken(MyGrammerParser.ELSEKEY, 0)
-
-        def FIKEY(self):
-            return self.getToken(MyGrammerParser.FIKEY, 0)
-
-        def WHILEKEY(self):
-            return self.getToken(MyGrammerParser.WHILEKEY, 0)
-
-        def LOOPKEY(self):
-            return self.getToken(MyGrammerParser.LOOPKEY, 0)
-
-        def POOLKEY(self):
-            return self.getToken(MyGrammerParser.POOLKEY, 0)
-
-        def ISVOIDKEY(self):
-            return self.getToken(MyGrammerParser.ISVOIDKEY, 0)
+        def INTEGERS(self):
+            return self.getToken(MyGrammerParser.INTEGERS, 0)
 
         def getRuleIndex(self):
             return MyGrammerParser.RULE_expr
@@ -801,100 +815,421 @@ class MyGrammerParser ( Parser ):
         self.enterRule(localctx, 14, self.RULE_expr)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 126
+            self.state = 120
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [MyGrammerParser.ID]:
-                self.state = 94
+                self.state = 106
                 localctx.calls = self.overwrite()
                 pass
+            elif token in [MyGrammerParser.STRING]:
+                self.state = 107
+                localctx.stringE = self.match(MyGrammerParser.STRING)
+                pass
             elif token in [MyGrammerParser.IFKEY]:
-                self.state = 95
-                self.match(MyGrammerParser.IFKEY)
-                self.state = 96
-                self.expr()
-                self.state = 97
-                self.match(MyGrammerParser.THENKEY)
-                self.state = 98
-                self.expr()
-                self.state = 99
-                self.match(MyGrammerParser.ELSEKEY)
-                self.state = 100
-                self.expr()
-                self.state = 101
-                self.match(MyGrammerParser.FIKEY)
+                self.state = 108
+                localctx.ifE = self.ifExpr()
                 pass
             elif token in [MyGrammerParser.WHILEKEY]:
-                self.state = 103
-                self.match(MyGrammerParser.WHILEKEY)
-                self.state = 104
-                self.expr()
-                self.state = 105
-                self.match(MyGrammerParser.LOOPKEY)
-                self.state = 106
-                self.expr()
-                self.state = 107
-                self.match(MyGrammerParser.POOLKEY)
+                self.state = 109
+                localctx.whileE = self.whileExpr()
                 pass
             elif token in [MyGrammerParser.LETKEY]:
-                self.state = 109
+                self.state = 110
                 localctx.let = self.letExpr()
                 pass
             elif token in [MyGrammerParser.NEWKEY]:
-                self.state = 110
+                self.state = 111
                 localctx.newDeclaration = self.declaration()
                 pass
             elif token in [MyGrammerParser.ISVOIDKEY]:
-                self.state = 111
-                self.match(MyGrammerParser.ISVOIDKEY)
                 self.state = 112
-                self.expr()
+                localctx.isVoid = self.isVoidExpr()
                 pass
             elif token in [MyGrammerParser.NOTKEY]:
                 self.state = 113
-                self.match(MyGrammerParser.NOTKEY)
-                self.state = 114
-                self.expr()
+                localctx.notE = self.notExpr()
                 pass
             elif token in [MyGrammerParser.T__8]:
-                self.state = 115
-                self.match(MyGrammerParser.T__8)
+                self.state = 114
+                localctx.trueE = self.match(MyGrammerParser.T__8)
                 pass
             elif token in [MyGrammerParser.T__9]:
-                self.state = 116
-                self.match(MyGrammerParser.T__9)
+                self.state = 115
+                localctx.falseE = self.match(MyGrammerParser.T__9)
                 pass
             elif token in [MyGrammerParser.T__3]:
-                self.state = 117
-                self.match(MyGrammerParser.T__3)
-                self.state = 118
-                self.expr()
-                self.state = 119
-                self.match(MyGrammerParser.T__4)
-                pass
-            elif token in [MyGrammerParser.INTEGERS]:
-                self.state = 121
-                self.match(MyGrammerParser.INTEGERS)
-                pass
-            elif token in [MyGrammerParser.STRING]:
-                self.state = 122
-                self.match(MyGrammerParser.STRING)
+                self.state = 116
+                localctx.parenE = self.parenExpr()
                 pass
             elif token in [MyGrammerParser.T__1]:
-                self.state = 123
+                self.state = 117
                 localctx.innerExpr = self.multipleExpr()
                 pass
             elif token in [MyGrammerParser.T__10]:
-                self.state = 124
-                self.match(MyGrammerParser.T__10)
-                self.state = 125
-                self.expr()
+                self.state = 118
+                localctx.negation = self.negationExpr()
+                pass
+            elif token in [MyGrammerParser.INTEGERS]:
+                self.state = 119
+                localctx.intE = self.match(MyGrammerParser.INTEGERS)
                 pass
             else:
                 raise NoViableAltException(self)
 
-            self.state = 128
+            self.state = 122
             localctx.nextExpr = self.expr2()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class ParenExprContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def expr(self):
+            return self.getTypedRuleContext(MyGrammerParser.ExprContext,0)
+
+
+        def getRuleIndex(self):
+            return MyGrammerParser.RULE_parenExpr
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterParenExpr" ):
+                listener.enterParenExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitParenExpr" ):
+                listener.exitParenExpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitParenExpr" ):
+                return visitor.visitParenExpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def parenExpr(self):
+
+        localctx = MyGrammerParser.ParenExprContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 16, self.RULE_parenExpr)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 124
+            self.match(MyGrammerParser.T__3)
+            self.state = 125
+            self.expr()
+            self.state = 126
+            self.match(MyGrammerParser.T__4)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class NegationExprContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def expr(self):
+            return self.getTypedRuleContext(MyGrammerParser.ExprContext,0)
+
+
+        def getRuleIndex(self):
+            return MyGrammerParser.RULE_negationExpr
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNegationExpr" ):
+                listener.enterNegationExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNegationExpr" ):
+                listener.exitNegationExpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNegationExpr" ):
+                return visitor.visitNegationExpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def negationExpr(self):
+
+        localctx = MyGrammerParser.NegationExprContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 18, self.RULE_negationExpr)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 128
+            self.match(MyGrammerParser.T__10)
+            self.state = 129
+            self.expr()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class NotExprContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def NOTKEY(self):
+            return self.getToken(MyGrammerParser.NOTKEY, 0)
+
+        def expr(self):
+            return self.getTypedRuleContext(MyGrammerParser.ExprContext,0)
+
+
+        def getRuleIndex(self):
+            return MyGrammerParser.RULE_notExpr
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNotExpr" ):
+                listener.enterNotExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNotExpr" ):
+                listener.exitNotExpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNotExpr" ):
+                return visitor.visitNotExpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def notExpr(self):
+
+        localctx = MyGrammerParser.NotExprContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 20, self.RULE_notExpr)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 131
+            self.match(MyGrammerParser.NOTKEY)
+            self.state = 132
+            self.expr()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class IsVoidExprContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def ISVOIDKEY(self):
+            return self.getToken(MyGrammerParser.ISVOIDKEY, 0)
+
+        def expr(self):
+            return self.getTypedRuleContext(MyGrammerParser.ExprContext,0)
+
+
+        def getRuleIndex(self):
+            return MyGrammerParser.RULE_isVoidExpr
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterIsVoidExpr" ):
+                listener.enterIsVoidExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitIsVoidExpr" ):
+                listener.exitIsVoidExpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIsVoidExpr" ):
+                return visitor.visitIsVoidExpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def isVoidExpr(self):
+
+        localctx = MyGrammerParser.IsVoidExprContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 22, self.RULE_isVoidExpr)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 134
+            self.match(MyGrammerParser.ISVOIDKEY)
+            self.state = 135
+            self.expr()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class WhileExprContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def WHILEKEY(self):
+            return self.getToken(MyGrammerParser.WHILEKEY, 0)
+
+        def expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(MyGrammerParser.ExprContext)
+            else:
+                return self.getTypedRuleContext(MyGrammerParser.ExprContext,i)
+
+
+        def LOOPKEY(self):
+            return self.getToken(MyGrammerParser.LOOPKEY, 0)
+
+        def POOLKEY(self):
+            return self.getToken(MyGrammerParser.POOLKEY, 0)
+
+        def getRuleIndex(self):
+            return MyGrammerParser.RULE_whileExpr
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterWhileExpr" ):
+                listener.enterWhileExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitWhileExpr" ):
+                listener.exitWhileExpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitWhileExpr" ):
+                return visitor.visitWhileExpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def whileExpr(self):
+
+        localctx = MyGrammerParser.WhileExprContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 24, self.RULE_whileExpr)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 137
+            self.match(MyGrammerParser.WHILEKEY)
+            self.state = 138
+            self.expr()
+            self.state = 139
+            self.match(MyGrammerParser.LOOPKEY)
+            self.state = 140
+            self.expr()
+            self.state = 141
+            self.match(MyGrammerParser.POOLKEY)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class IfExprContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def IFKEY(self):
+            return self.getToken(MyGrammerParser.IFKEY, 0)
+
+        def expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(MyGrammerParser.ExprContext)
+            else:
+                return self.getTypedRuleContext(MyGrammerParser.ExprContext,i)
+
+
+        def THENKEY(self):
+            return self.getToken(MyGrammerParser.THENKEY, 0)
+
+        def ELSEKEY(self):
+            return self.getToken(MyGrammerParser.ELSEKEY, 0)
+
+        def FIKEY(self):
+            return self.getToken(MyGrammerParser.FIKEY, 0)
+
+        def getRuleIndex(self):
+            return MyGrammerParser.RULE_ifExpr
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterIfExpr" ):
+                listener.enterIfExpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitIfExpr" ):
+                listener.exitIfExpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIfExpr" ):
+                return visitor.visitIfExpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def ifExpr(self):
+
+        localctx = MyGrammerParser.IfExprContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 26, self.RULE_ifExpr)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 143
+            self.match(MyGrammerParser.IFKEY)
+            self.state = 144
+            self.expr()
+            self.state = 145
+            self.match(MyGrammerParser.THENKEY)
+            self.state = 146
+            self.expr()
+            self.state = 147
+            self.match(MyGrammerParser.ELSEKEY)
+            self.state = 148
+            self.expr()
+            self.state = 149
+            self.match(MyGrammerParser.FIKEY)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -954,18 +1289,18 @@ class MyGrammerParser ( Parser ):
     def letExpr(self):
 
         localctx = MyGrammerParser.LetExprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 16, self.RULE_letExpr)
+        self.enterRule(localctx, 28, self.RULE_letExpr)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 130
+            self.state = 151
             self.match(MyGrammerParser.LETKEY)
-            self.state = 131
+            self.state = 152
             localctx.initial = self.initialExpr()
-            self.state = 132
+            self.state = 153
             localctx.following = self.followingExpr()
-            self.state = 133
+            self.state = 154
             self.match(MyGrammerParser.INKEY)
-            self.state = 134
+            self.state = 155
             self.expr()
         except RecognitionException as re:
             localctx.exception = re
@@ -1018,23 +1353,23 @@ class MyGrammerParser ( Parser ):
     def initialExpr(self):
 
         localctx = MyGrammerParser.InitialExprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_initialExpr)
+        self.enterRule(localctx, 30, self.RULE_initialExpr)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 136
+            self.state = 157
             localctx.name = self.match(MyGrammerParser.ID)
-            self.state = 137
+            self.state = 158
             self.match(MyGrammerParser.T__5)
-            self.state = 138
+            self.state = 159
             localctx.typeName = self.match(MyGrammerParser.TYPE)
-            self.state = 141
+            self.state = 162
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==MyGrammerParser.T__7:
-                self.state = 139
+                self.state = 160
                 self.match(MyGrammerParser.T__7)
-                self.state = 140
+                self.state = 161
                 self.expr()
 
 
@@ -1084,19 +1419,19 @@ class MyGrammerParser ( Parser ):
     def followingExpr(self):
 
         localctx = MyGrammerParser.FollowingExprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_followingExpr)
+        self.enterRule(localctx, 32, self.RULE_followingExpr)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 147
+            self.state = 168
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==MyGrammerParser.T__6:
-                self.state = 143
+                self.state = 164
                 self.match(MyGrammerParser.T__6)
-                self.state = 144
+                self.state = 165
                 self.initialExpr()
-                self.state = 149
+                self.state = 170
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -1115,6 +1450,7 @@ class MyGrammerParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.typeName = None # Token
 
         def NEWKEY(self):
             return self.getToken(MyGrammerParser.NEWKEY, 0)
@@ -1145,13 +1481,13 @@ class MyGrammerParser ( Parser ):
     def declaration(self):
 
         localctx = MyGrammerParser.DeclarationContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_declaration)
+        self.enterRule(localctx, 34, self.RULE_declaration)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 150
+            self.state = 171
             self.match(MyGrammerParser.NEWKEY)
-            self.state = 151
-            self.match(MyGrammerParser.TYPE)
+            self.state = 172
+            localctx.typeName = self.match(MyGrammerParser.TYPE)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1198,27 +1534,27 @@ class MyGrammerParser ( Parser ):
     def multipleExpr(self):
 
         localctx = MyGrammerParser.MultipleExprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_multipleExpr)
+        self.enterRule(localctx, 36, self.RULE_multipleExpr)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 153
+            self.state = 174
             self.match(MyGrammerParser.T__1)
-            self.state = 157 
+            self.state = 178 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 154
+                self.state = 175
                 self.expr()
-                self.state = 155
+                self.state = 176
                 self.match(MyGrammerParser.T__0)
-                self.state = 159 
+                self.state = 180 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MyGrammerParser.T__1) | (1 << MyGrammerParser.T__3) | (1 << MyGrammerParser.T__8) | (1 << MyGrammerParser.T__9) | (1 << MyGrammerParser.T__10) | (1 << MyGrammerParser.IFKEY) | (1 << MyGrammerParser.WHILEKEY) | (1 << MyGrammerParser.LETKEY) | (1 << MyGrammerParser.NEWKEY) | (1 << MyGrammerParser.ISVOIDKEY) | (1 << MyGrammerParser.NOTKEY) | (1 << MyGrammerParser.ID) | (1 << MyGrammerParser.INTEGERS) | (1 << MyGrammerParser.STRING))) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MyGrammerParser.T__1) | (1 << MyGrammerParser.T__3) | (1 << MyGrammerParser.T__8) | (1 << MyGrammerParser.T__9) | (1 << MyGrammerParser.T__10) | (1 << MyGrammerParser.IFKEY) | (1 << MyGrammerParser.WHILEKEY) | (1 << MyGrammerParser.LETKEY) | (1 << MyGrammerParser.NEWKEY) | (1 << MyGrammerParser.ISVOIDKEY) | (1 << MyGrammerParser.NOTKEY) | (1 << MyGrammerParser.INTEGERS) | (1 << MyGrammerParser.ID) | (1 << MyGrammerParser.STRING))) != 0)):
                     break
 
-            self.state = 161
+            self.state = 182
             self.match(MyGrammerParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
@@ -1293,36 +1629,36 @@ class MyGrammerParser ( Parser ):
     def expr2(self):
 
         localctx = MyGrammerParser.Expr2Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_expr2)
+        self.enterRule(localctx, 38, self.RULE_expr2)
         self._la = 0 # Token type
         try:
-            self.state = 171
+            self.state = 192
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,12,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 166
+                self.state = 187
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [MyGrammerParser.PLUS, MyGrammerParser.MINUS, MyGrammerParser.STAR, MyGrammerParser.SLASH, MyGrammerParser.LOWERTHAN, MyGrammerParser.EQUALS, MyGrammerParser.LOWEREQUAL]:
-                    self.state = 163
+                    self.state = 184
                     _la = self._input.LA(1)
                     if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MyGrammerParser.PLUS) | (1 << MyGrammerParser.MINUS) | (1 << MyGrammerParser.STAR) | (1 << MyGrammerParser.SLASH) | (1 << MyGrammerParser.LOWERTHAN) | (1 << MyGrammerParser.EQUALS) | (1 << MyGrammerParser.LOWEREQUAL))) != 0)):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
-                    self.state = 164
+                    self.state = 185
                     self.expr()
                     pass
                 elif token in [MyGrammerParser.T__11, MyGrammerParser.T__12]:
-                    self.state = 165
+                    self.state = 186
                     localctx.mCall = self.methodCall()
                     pass
                 else:
                     raise NoViableAltException(self)
 
-                self.state = 168
+                self.state = 189
                 self.expr2()
                 pass
 
@@ -1385,47 +1721,47 @@ class MyGrammerParser ( Parser ):
     def methodCall(self):
 
         localctx = MyGrammerParser.MethodCallContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_methodCall)
+        self.enterRule(localctx, 40, self.RULE_methodCall)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 175
+            self.state = 196
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==MyGrammerParser.T__11:
-                self.state = 173
+                self.state = 194
                 self.match(MyGrammerParser.T__11)
-                self.state = 174
+                self.state = 195
                 self.match(MyGrammerParser.TYPE)
 
 
-            self.state = 177
+            self.state = 198
             self.match(MyGrammerParser.T__12)
-            self.state = 178
+            self.state = 199
             localctx.methodName = self.match(MyGrammerParser.ID)
-            self.state = 179
+            self.state = 200
             self.match(MyGrammerParser.T__3)
-            self.state = 188
+            self.state = 209
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MyGrammerParser.T__1) | (1 << MyGrammerParser.T__3) | (1 << MyGrammerParser.T__8) | (1 << MyGrammerParser.T__9) | (1 << MyGrammerParser.T__10) | (1 << MyGrammerParser.IFKEY) | (1 << MyGrammerParser.WHILEKEY) | (1 << MyGrammerParser.LETKEY) | (1 << MyGrammerParser.NEWKEY) | (1 << MyGrammerParser.ISVOIDKEY) | (1 << MyGrammerParser.NOTKEY) | (1 << MyGrammerParser.ID) | (1 << MyGrammerParser.INTEGERS) | (1 << MyGrammerParser.STRING))) != 0):
-                self.state = 180
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MyGrammerParser.T__1) | (1 << MyGrammerParser.T__3) | (1 << MyGrammerParser.T__8) | (1 << MyGrammerParser.T__9) | (1 << MyGrammerParser.T__10) | (1 << MyGrammerParser.IFKEY) | (1 << MyGrammerParser.WHILEKEY) | (1 << MyGrammerParser.LETKEY) | (1 << MyGrammerParser.NEWKEY) | (1 << MyGrammerParser.ISVOIDKEY) | (1 << MyGrammerParser.NOTKEY) | (1 << MyGrammerParser.INTEGERS) | (1 << MyGrammerParser.ID) | (1 << MyGrammerParser.STRING))) != 0):
+                self.state = 201
                 self.expr()
-                self.state = 185
+                self.state = 206
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==MyGrammerParser.T__6:
-                    self.state = 181
+                    self.state = 202
                     self.match(MyGrammerParser.T__6)
-                    self.state = 182
+                    self.state = 203
                     self.expr()
-                    self.state = 187
+                    self.state = 208
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
 
 
-            self.state = 190
+            self.state = 211
             self.match(MyGrammerParser.T__4)
         except RecognitionException as re:
             localctx.exception = re
@@ -1480,20 +1816,20 @@ class MyGrammerParser ( Parser ):
     def overwrite(self):
 
         localctx = MyGrammerParser.OverwriteContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_overwrite)
+        self.enterRule(localctx, 42, self.RULE_overwrite)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 192
+            self.state = 213
             localctx.name = self.match(MyGrammerParser.ID)
-            self.state = 196
+            self.state = 217
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [MyGrammerParser.T__7]:
-                self.state = 193
+                self.state = 214
                 localctx.attr = self.attrWrite()
                 pass
             elif token in [MyGrammerParser.T__3]:
-                self.state = 194
+                self.state = 215
                 localctx.fun = self.funCall()
                 pass
             elif token in [MyGrammerParser.T__0, MyGrammerParser.T__2, MyGrammerParser.T__4, MyGrammerParser.T__6, MyGrammerParser.T__11, MyGrammerParser.T__12, MyGrammerParser.PLUS, MyGrammerParser.MINUS, MyGrammerParser.STAR, MyGrammerParser.SLASH, MyGrammerParser.LOWERTHAN, MyGrammerParser.EQUALS, MyGrammerParser.LOWEREQUAL, MyGrammerParser.LOOPKEY, MyGrammerParser.ELSEKEY, MyGrammerParser.THENKEY, MyGrammerParser.FIKEY, MyGrammerParser.INKEY, MyGrammerParser.POOLKEY]:
@@ -1516,6 +1852,7 @@ class MyGrammerParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.attrInner = None # ExprContext
 
         def expr(self):
             return self.getTypedRuleContext(MyGrammerParser.ExprContext,0)
@@ -1544,13 +1881,13 @@ class MyGrammerParser ( Parser ):
     def attrWrite(self):
 
         localctx = MyGrammerParser.AttrWriteContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_attrWrite)
+        self.enterRule(localctx, 44, self.RULE_attrWrite)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 198
+            self.state = 219
             self.match(MyGrammerParser.T__7)
-            self.state = 199
-            self.expr()
+            self.state = 220
+            localctx.attrInner = self.expr()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1597,33 +1934,33 @@ class MyGrammerParser ( Parser ):
     def funCall(self):
 
         localctx = MyGrammerParser.FunCallContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_funCall)
+        self.enterRule(localctx, 46, self.RULE_funCall)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 201
+            self.state = 222
             self.match(MyGrammerParser.T__3)
-            self.state = 210
+            self.state = 231
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MyGrammerParser.T__1) | (1 << MyGrammerParser.T__3) | (1 << MyGrammerParser.T__8) | (1 << MyGrammerParser.T__9) | (1 << MyGrammerParser.T__10) | (1 << MyGrammerParser.IFKEY) | (1 << MyGrammerParser.WHILEKEY) | (1 << MyGrammerParser.LETKEY) | (1 << MyGrammerParser.NEWKEY) | (1 << MyGrammerParser.ISVOIDKEY) | (1 << MyGrammerParser.NOTKEY) | (1 << MyGrammerParser.ID) | (1 << MyGrammerParser.INTEGERS) | (1 << MyGrammerParser.STRING))) != 0):
-                self.state = 202
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MyGrammerParser.T__1) | (1 << MyGrammerParser.T__3) | (1 << MyGrammerParser.T__8) | (1 << MyGrammerParser.T__9) | (1 << MyGrammerParser.T__10) | (1 << MyGrammerParser.IFKEY) | (1 << MyGrammerParser.WHILEKEY) | (1 << MyGrammerParser.LETKEY) | (1 << MyGrammerParser.NEWKEY) | (1 << MyGrammerParser.ISVOIDKEY) | (1 << MyGrammerParser.NOTKEY) | (1 << MyGrammerParser.INTEGERS) | (1 << MyGrammerParser.ID) | (1 << MyGrammerParser.STRING))) != 0):
+                self.state = 223
                 self.expr()
-                self.state = 207
+                self.state = 228
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==MyGrammerParser.T__6:
-                    self.state = 203
+                    self.state = 224
                     self.match(MyGrammerParser.T__6)
-                    self.state = 204
+                    self.state = 225
                     self.expr()
-                    self.state = 209
+                    self.state = 230
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
 
 
-            self.state = 212
+            self.state = 233
             self.match(MyGrammerParser.T__4)
         except RecognitionException as re:
             localctx.exception = re

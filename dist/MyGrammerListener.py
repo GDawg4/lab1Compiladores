@@ -80,6 +80,60 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyGrammerParser#parenExpr.
+    def enterParenExpr(self, ctx:MyGrammerParser.ParenExprContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#parenExpr.
+    def exitParenExpr(self, ctx:MyGrammerParser.ParenExprContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#negationExpr.
+    def enterNegationExpr(self, ctx:MyGrammerParser.NegationExprContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#negationExpr.
+    def exitNegationExpr(self, ctx:MyGrammerParser.NegationExprContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#notExpr.
+    def enterNotExpr(self, ctx:MyGrammerParser.NotExprContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#notExpr.
+    def exitNotExpr(self, ctx:MyGrammerParser.NotExprContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#isVoidExpr.
+    def enterIsVoidExpr(self, ctx:MyGrammerParser.IsVoidExprContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#isVoidExpr.
+    def exitIsVoidExpr(self, ctx:MyGrammerParser.IsVoidExprContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#whileExpr.
+    def enterWhileExpr(self, ctx:MyGrammerParser.WhileExprContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#whileExpr.
+    def exitWhileExpr(self, ctx:MyGrammerParser.WhileExprContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#ifExpr.
+    def enterIfExpr(self, ctx:MyGrammerParser.IfExprContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#ifExpr.
+    def exitIfExpr(self, ctx:MyGrammerParser.IfExprContext):
+        pass
+
+
     # Enter a parse tree produced by MyGrammerParser#letExpr.
     def enterLetExpr(self, ctx:MyGrammerParser.LetExprContext):
         pass

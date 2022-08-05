@@ -5,57 +5,49 @@ from dist.MyGrammerLexer import MyGrammerLexer
 from dist.MyGrammerParser import MyGrammerParser
 from dist.MyGrammerVisitor import MyGrammerVisitor
 import pprint
-
+from tkinter import *
+from tkinter import ttk
+from TypeTable import TypeTable
+from SymbolTable import SymbolTable
+from TreeReturn import TreeReturn
 # Classes format:
 # name : {name: name, attr: [attributes], methods: [methods]}
 pp = pprint.PrettyPrinter(indent=4)
 class MyVisitor(MyGrammerVisitor):
-    def check_stacks(self, stacks, name):
-        for i in stacks:
-            if name in i:
-                return True
-        return False
+
+    def check_types(self, left_side, right_side):
+        return left_side.type == right_side.type
 
     def visitProgram(self, ctx):
-        self.classes = {
-            'Int': {
-                'name': 'Int',
-            },
-            'Bool': {
-                'name': 'Bool'
-            },
-            'String': {
-                'name': 'String'
-            }
-        }
-        self.methods = {}
-        self.attributes = {}
-        self.symbol_table = []
+        self.type_table = TypeTable()
+        self.symbol_table = SymbolTable()
         self.symbol_methods = {}
         self.symbol_attributes = {}
+        self.symbol_arguments = {}
         # value = ctx.getText()
         # return int(value)
         self.visitChildren(ctx)
         print('Classes')
-        pp.pprint(self.classes)
-        # print('Methods')
-        # pp.pprint(self.methods)
-        # print('Attributes')
-        # pp.pprint(self.attributes)
-        # print('Symbol table')
-        pp.pprint(self.symbol_table)
+        pp.pprint(self.type_table.get_classes())
+        print('Methods')
+        pp.pprint(self.type_table.get_methods())
+        print('Attributes')
+        pp.pprint(self.type_table.get_attributes())
+        print('Arguments')
+        pp.pprint(self.type_table.get_arguments())
+        print('Symbol table')
+        pp.pprint(self.symbol_table.get_symbol_table())
         return
 
     def visitClassP(self, ctx):
-        self.symbol_table.append({})
+        self.symbol_table.add_scope()
         self.current_class = ctx.name.text
         self.current_methods = []
         self.current_attributes = []
         # return self.visit(ctx.expr())
         self.visitChildren(ctx)
-        self.classes[self.current_class] = {'name': self.current_class, 'attributes': self.current_attributes, 'methods': self.current_methods}
-        # pp.pprint(self.symbol_table)
-        self.symbol_table.pop()
+        self.type_table.add_type(self.current_class, self.current_attributes, self.current_methods)
+        self.symbol_table.remove_scope()
         return ctx.getText()
 
     def visitFeature(self, ctx):
@@ -66,15 +58,14 @@ class MyVisitor(MyGrammerVisitor):
     # Method format:
     # name : {name : name, args: {name: {'name': name, 'type':type}}, type: type}
     def visitMethod(self, ctx):
-        self.symbol_table.append({})
-        (self.symbol_table[0])[self.current_feature] = {'name': self.current_feature}
+        self.symbol_table.add_symbol(self.current_feature, ctx.returnType.text)
+        self.symbol_table.add_scope()
         self.current_methods.append(self.current_feature)
-        self.current_arguments = {}
+        self.current_arguments = []
         self.visit(ctx.argumentList)
         self.visit(ctx.mainExpr)
-        self.methods[self.current_feature] = {'name': self.current_feature, 'arguments': self.current_arguments, 'return_type': ctx.returnType.text}
-        # pp.pprint(self.symbol_table)
-        self.symbol_table.pop()
+        self.type_table.add_method(self.current_feature, self.current_arguments, ctx.returnType.text)
+        self.symbol_table.remove_scope()
         return
 
     def visitArguments(self, ctx):
@@ -84,50 +75,66 @@ class MyVisitor(MyGrammerVisitor):
     # Attribute format:
     # name : {name : name, type: type}
     def visitAttribute(self, ctx):
-        (self.symbol_table[0])[self.current_feature] = {'name': self.current_feature}
         type_name = ctx.typeName.text
-        if type_name in self.classes:
+        declared_type = TreeReturn(type_name)
+        actual_type = TreeReturn(self.visit(ctx.attrExpr))
+        if self.type_table.type_exists(type_name):
             pass
         else:
-            raise NotImplemented
-        # pp.pprint(self.symbol_table)
-        self.attributes[self.current_feature] = {'name': self.current_feature, 'type': type_name}
-        return
+            print("Not found attribute")
+        self.symbol_table.add_symbol(self.current_feature, type_name)
+        self.type_table.add_attribute(self.current_feature, type_name)
+        self.current_attributes.append(self.current_feature)
+        return declared_type if self.check_types(declared_type, actual_type) else TreeReturn("Error")
 
     def visitFormal(self, ctx):
-        self.current_arguments[ctx.name.text] = {'name': ctx.name.text, 'type': ctx.typeName.text}
+        self.type_table.add_argument(ctx.name.text, ctx.typeName.text)
+        self.symbol_table.add_symbol(ctx.name.text, ctx.typeName.text)
+        self.current_arguments.append(ctx.name.text)
         return
 
     def visitExpr(self, ctx):
+        to_return = TreeReturn("Error")
         if ctx.calls:
             self.visit(ctx.calls)
         if ctx.innerExpr:
             self.visit(ctx.innerExpr)
         if ctx.let:
-            self.symbol_table.append({})
+            self.symbol_table.add_scope()
             self.visit(ctx.let)
-            print('Let', self.symbol_table[0])
-            self.symbol_table.pop()
+            print('Let', self.symbol_table.peek())
+            self.symbol_table.remove_scope()
+        if ctx.newDeclaration:
+            to_return = TreeReturn(self.visit(ctx.newDeclaration))
+        if ctx.intE:
+            to_return = TreeReturn("Int")
+        if ctx.stringE:
+            to_return = TreeReturn("String")
+        if ctx.falseE or ctx.trueE:
+            to_return = TreeReturn("Bool")
         self.visit(ctx.nextExpr)
-        return
+        return to_return
+
+    def visitDeclaration(self, ctx):
+        return ctx.typeName.text
 
     def visitMultipleExpr(self, ctx):
         self.visitChildren(ctx)
         return
 
     def visitLetExpr(self, ctx):
+        print("My Expr")
+        pp.pprint(self.symbol_table.get_symbol_table())
         self.visit(ctx.initial)
         return
 
     def visitInitialExpr(self, ctx):
         name = ctx.name.text
         type_name = ctx.typeName.text
-        if type_name in self.classes:
+        if self.type_table.type_exists(type_name):
             pass
-            #Change to last
-            # self.symbol_table[0][name] = type_name
         else:
-            raise NotImplemented
+            print("Not found initialExpr")
         return
 
     def visitFollowingExpr(self, ctx):
@@ -144,16 +151,31 @@ class MyVisitor(MyGrammerVisitor):
         return
 
     def visitOverwrite(self, ctx):
-        if self.check_stacks(self.symbol_table, ctx.name.text):
+        return_type = None
+        ### Check current_overwrite problem
+        self.current_overwrite = ctx.name.text
+        print(f"Current overwrite {self.current_overwrite}")
+        if ctx.attr:
+            return_type = TreeReturn(self.visit(ctx.attr))
+        if ctx.fun:
+            return_type = TreeReturn(self.visit(ctx.fun))
+        if not (ctx.attr or ctx.fun):
+            return_type = TreeReturn(self.symbol_table.find_symbol(self.current_overwrite))
+        if self.symbol_table.check_for_symbol(ctx.name.text):
             # print('Found', ctx.name.text)
             pass
         else:
-            raise NotImplemented
-        return
+            pp.pprint(self.symbol_table.get_symbol_table())
+            print(f"Not found overwrite {ctx.name.text}")
+        return return_type
 
     # Visit a parse tree produced by MyGrammerParser#attrWrite.
     def visitAttrWrite(self, ctx):
-        return self.visitChildren(ctx)
+        # self.visitChildren(ctx)
+        type_name = TreeReturn(self.symbol_table.find_symbol(self.current_overwrite))
+        actual_type = TreeReturn(self.visit(ctx.attrInner))
+        print(f"Checked types for {self.current_overwrite} {type_name} {actual_type}")
+        return self.visit(ctx.attrInner)
 
 
     # Visit a parse tree produced by MyGrammerParser#funCall.
@@ -166,7 +188,7 @@ if __name__ == "__main__":
         data =  InputStream("""
 class Radio {
     isOn:Bool <- false;
-    currentStation:Int <- 0;
+    currentStation:Int <- 123;
     turn_on():Bool{
         isOn <- true
     };
@@ -174,7 +196,7 @@ class Radio {
         isOn <- false
     };
     change_station(newStation : Int, som : Int): Int{
-        currentStation <- max(min(newStation, 100), 0)
+        currentStation <- newStation + som
     };
 };
 

@@ -49,6 +49,36 @@ class MyGrammerVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MyGrammerParser#parenExpr.
+    def visitParenExpr(self, ctx:MyGrammerParser.ParenExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MyGrammerParser#negationExpr.
+    def visitNegationExpr(self, ctx:MyGrammerParser.NegationExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MyGrammerParser#notExpr.
+    def visitNotExpr(self, ctx:MyGrammerParser.NotExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MyGrammerParser#isVoidExpr.
+    def visitIsVoidExpr(self, ctx:MyGrammerParser.IsVoidExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MyGrammerParser#whileExpr.
+    def visitWhileExpr(self, ctx:MyGrammerParser.WhileExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MyGrammerParser#ifExpr.
+    def visitIfExpr(self, ctx:MyGrammerParser.IfExprContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MyGrammerParser#letExpr.
     def visitLetExpr(self, ctx:MyGrammerParser.LetExprContext):
         return self.visitChildren(ctx)
