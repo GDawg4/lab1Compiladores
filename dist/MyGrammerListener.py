@@ -206,6 +206,15 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyGrammerParser#changes.
+    def enterChanges(self, ctx:MyGrammerParser.ChangesContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#changes.
+    def exitChanges(self, ctx:MyGrammerParser.ChangesContext):
+        pass
+
+
     # Enter a parse tree produced by MyGrammerParser#attrWrite.
     def enterAttrWrite(self, ctx:MyGrammerParser.AttrWriteContext):
         pass

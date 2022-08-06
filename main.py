@@ -96,9 +96,10 @@ class MyVisitor(MyGrammerVisitor):
     def visitExpr(self, ctx):
         to_return = TreeReturn("Error")
         if ctx.calls:
-            self.visit(ctx.calls)
+            print(f"Overwrite {ctx.calls.name.text}")
+            to_return = self.visit(ctx.calls)
         if ctx.innerExpr:
-            self.visit(ctx.innerExpr)
+            to_return = self.visit(ctx.innerExpr)
         if ctx.let:
             self.symbol_table.add_scope()
             self.visit(ctx.let)
@@ -107,12 +108,14 @@ class MyVisitor(MyGrammerVisitor):
         if ctx.newDeclaration:
             to_return = TreeReturn(self.visit(ctx.newDeclaration))
         if ctx.intE:
+            print(f"IntE {ctx.intE.text}")
             to_return = TreeReturn("Int")
         if ctx.stringE:
             to_return = TreeReturn("String")
         if ctx.falseE or ctx.trueE:
             to_return = TreeReturn("Bool")
         self.visit(ctx.nextExpr)
+        print(f"Checking type {to_return}")
         return to_return
 
     def visitDeclaration(self, ctx):
@@ -152,15 +155,19 @@ class MyVisitor(MyGrammerVisitor):
 
     def visitOverwrite(self, ctx):
         return_type = None
-        ### Check current_overwrite problem
-        self.current_overwrite = ctx.name.text
-        print(f"Current overwrite {self.current_overwrite}")
+        # Check current_overwrite problem
+        # print(f"Current overwrite {ctx.name.text}")
         if ctx.attr:
-            return_type = TreeReturn(self.visit(ctx.attr))
+            left_side = TreeReturn(self.symbol_table.find_symbol(ctx.name.text))
+            right_side = TreeReturn(self.visit(ctx.attr))
+            if self.check_types(left_side, right_side):
+                return_type = None
+            else:
+                return_type = TreeReturn("Error")
         if ctx.fun:
             return_type = TreeReturn(self.visit(ctx.fun))
         if not (ctx.attr or ctx.fun):
-            return_type = TreeReturn(self.symbol_table.find_symbol(self.current_overwrite))
+            return_type = TreeReturn(self.symbol_table.find_symbol(ctx.name.text))
         if self.symbol_table.check_for_symbol(ctx.name.text):
             # print('Found', ctx.name.text)
             pass
@@ -169,13 +176,11 @@ class MyVisitor(MyGrammerVisitor):
             print(f"Not found overwrite {ctx.name.text}")
         return return_type
 
+
     # Visit a parse tree produced by MyGrammerParser#attrWrite.
     def visitAttrWrite(self, ctx):
-        # self.visitChildren(ctx)
-        type_name = TreeReturn(self.symbol_table.find_symbol(self.current_overwrite))
         actual_type = TreeReturn(self.visit(ctx.attrInner))
-        print(f"Checked types for {self.current_overwrite} {type_name} {actual_type}")
-        return self.visit(ctx.attrInner)
+        return TreeReturn(self.visit(ctx.attrInner))
 
 
     # Visit a parse tree produced by MyGrammerParser#funCall.
@@ -187,30 +192,9 @@ if __name__ == "__main__":
     while 1:
         data =  InputStream("""
 class Radio {
-    isOn:Bool <- false;
     currentStation:Int <- 123;
-    turn_on():Bool{
-        isOn <- true
-    };
-    turn_off():Bool{
-        isOn <- false
-    };
     change_station(newStation : Int, som : Int): Int{
         currentStation <- newStation + som
-    };
-};
-
-class Main {
- myRadio:Radio <- new Radio;
- main(): SELF_TYPE {
-        {
-            myRadio.turnOn();
-            myRadio.change(5);
-            myRadio.turnOff();
-            let inner1: Int <- 1, inner2:Int <- 5 in {
-                inner1 <- inner1 + inner2;
-            };
-        }
     };
 };""")
         # lexer

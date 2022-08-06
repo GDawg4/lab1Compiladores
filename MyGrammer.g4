@@ -120,10 +120,10 @@ methodCall: ('@' TYPE)? '.' methodName=ID '(' (expr (',' expr)*)? ')'
 overwrite
     : 
         name=ID
-    (   
+        (
         attr=attrWrite
-    |   fun=funCall
-    |
+        |   fun=funCall
+        |
     )
 ;
 

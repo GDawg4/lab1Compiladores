@@ -119,6 +119,11 @@ class MyGrammerVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MyGrammerParser#changes.
+    def visitChanges(self, ctx:MyGrammerParser.ChangesContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MyGrammerParser#attrWrite.
     def visitAttrWrite(self, ctx:MyGrammerParser.AttrWriteContext):
         return self.visitChildren(ctx)
