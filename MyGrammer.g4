@@ -5,14 +5,18 @@ program
     :   (meat=classP end=';')+;
 
 classP
-    :   CLASSKEY name=TYPE (INHERITSKEY TYPE)? '{' (feature)* '}'
+    :   CLASSKEY name=TYPE (INHERITSKEY TYPE)? '{' features '}'
+;
+
+features:
+    feature*
 ;
 
 feature  
     :   name=ID
     (
-        method
-    |   attribute
+        featureMethod=method
+    |   featureAttr=attribute
     )
     ';'
 ;
@@ -37,7 +41,7 @@ expr
     (
             calls=overwrite
         |   stringE = STRING
-        |    ifE = ifExpr
+        |   ifE = ifExpr
         |   whileE = whileExpr
         |   let = letExpr
         |   newDeclaration = declaration
@@ -50,7 +54,7 @@ expr
         |   negation = negationExpr
         |   intE = INTEGERS
     )
-    nextExpr=expr2
+    (nextExpr=operations| )
 ;
 
 parenExpr
@@ -78,7 +82,7 @@ ifExpr
 ;
 
 letExpr
-    : (LETKEY initial=initialExpr following=followingExpr INKEY expr)
+    : (LETKEY initial=initialExpr (',' initialExpr)* INKEY expr)
 ;
 initialExpr
     : name=ID ':' typeName=TYPE ('<-' expr)?
@@ -96,7 +100,7 @@ multipleExpr
     : '{' (expr ';')+ '}'
 ;
 
-expr2
+operations
     :   
     (
         (
@@ -108,10 +112,9 @@ expr2
             |   EQUALS
             |   LOWEREQUAL
         )
-        expr
+        rightSide = expr
         | mCall = methodCall
-    ) expr2
-    |
+    ) operations |
 ;
 
 methodCall: ('@' TYPE)? '.' methodName=ID '(' (expr (',' expr)*)? ')'

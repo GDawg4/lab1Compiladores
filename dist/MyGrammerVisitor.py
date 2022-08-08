@@ -19,6 +19,11 @@ class MyGrammerVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MyGrammerParser#features.
+    def visitFeatures(self, ctx:MyGrammerParser.FeaturesContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MyGrammerParser#feature.
     def visitFeature(self, ctx:MyGrammerParser.FeatureContext):
         return self.visitChildren(ctx)
@@ -104,8 +109,8 @@ class MyGrammerVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyGrammerParser#expr2.
-    def visitExpr2(self, ctx:MyGrammerParser.Expr2Context):
+    # Visit a parse tree produced by MyGrammerParser#operations.
+    def visitOperations(self, ctx:MyGrammerParser.OperationsContext):
         return self.visitChildren(ctx)
 
 
@@ -116,11 +121,6 @@ class MyGrammerVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MyGrammerParser#overwrite.
     def visitOverwrite(self, ctx:MyGrammerParser.OverwriteContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MyGrammerParser#changes.
-    def visitChanges(self, ctx:MyGrammerParser.ChangesContext):
         return self.visitChildren(ctx)
 
 

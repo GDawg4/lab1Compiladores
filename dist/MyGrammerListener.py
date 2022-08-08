@@ -26,6 +26,15 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyGrammerParser#features.
+    def enterFeatures(self, ctx:MyGrammerParser.FeaturesContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#features.
+    def exitFeatures(self, ctx:MyGrammerParser.FeaturesContext):
+        pass
+
+
     # Enter a parse tree produced by MyGrammerParser#feature.
     def enterFeature(self, ctx:MyGrammerParser.FeatureContext):
         pass
@@ -179,12 +188,12 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MyGrammerParser#expr2.
-    def enterExpr2(self, ctx:MyGrammerParser.Expr2Context):
+    # Enter a parse tree produced by MyGrammerParser#operations.
+    def enterOperations(self, ctx:MyGrammerParser.OperationsContext):
         pass
 
-    # Exit a parse tree produced by MyGrammerParser#expr2.
-    def exitExpr2(self, ctx:MyGrammerParser.Expr2Context):
+    # Exit a parse tree produced by MyGrammerParser#operations.
+    def exitOperations(self, ctx:MyGrammerParser.OperationsContext):
         pass
 
 
@@ -203,15 +212,6 @@ class MyGrammerListener(ParseTreeListener):
 
     # Exit a parse tree produced by MyGrammerParser#overwrite.
     def exitOverwrite(self, ctx:MyGrammerParser.OverwriteContext):
-        pass
-
-
-    # Enter a parse tree produced by MyGrammerParser#changes.
-    def enterChanges(self, ctx:MyGrammerParser.ChangesContext):
-        pass
-
-    # Exit a parse tree produced by MyGrammerParser#changes.
-    def exitChanges(self, ctx:MyGrammerParser.ChangesContext):
         pass
 
 
