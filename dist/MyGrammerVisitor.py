@@ -54,6 +54,11 @@ class MyGrammerVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MyGrammerParser#boolExpr.
+    def visitBoolExpr(self, ctx:MyGrammerParser.BoolExprContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MyGrammerParser#parenExpr.
     def visitParenExpr(self, ctx:MyGrammerParser.ParenExprContext):
         return self.visitChildren(ctx)
@@ -109,8 +114,13 @@ class MyGrammerVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyGrammerParser#operations.
-    def visitOperations(self, ctx:MyGrammerParser.OperationsContext):
+    # Visit a parse tree produced by MyGrammerParser#NotEmpty.
+    def visitNotEmpty(self, ctx:MyGrammerParser.NotEmptyContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MyGrammerParser#Escape.
+    def visitEscape(self, ctx:MyGrammerParser.EscapeContext):
         return self.visitChildren(ctx)
 
 

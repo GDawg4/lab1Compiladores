@@ -47,14 +47,18 @@ expr
         |   newDeclaration = declaration
         |   isVoid = isVoidExpr
         |   notE = notExpr
-        |   trueE = 'true'
-        |   falseE = 'false'
+        |   boolE = boolExpr
         |   parenE = parenExpr
         |   innerExpr=multipleExpr
         |   negation = negationExpr
         |   intE = INTEGERS
     )
     (nextExpr=operations| )
+;
+
+boolExpr:
+        trueE = 'true'
+        |   falseE = 'false'
 ;
 
 parenExpr
@@ -82,10 +86,10 @@ ifExpr
 ;
 
 letExpr
-    : (LETKEY initial=initialExpr (',' initialExpr)* INKEY expr)
+    : (LETKEY initial=initialExpr (',' initialExpr)* INKEY mainExpr=expr)
 ;
 initialExpr
-    : name=ID ':' typeName=TYPE ('<-' expr)?
+    : name=ID ':' typeName=TYPE ('<-' actualExpr=expr)?
 ;
 
 followingExpr
@@ -114,7 +118,8 @@ operations
         )
         rightSide = expr
         | mCall = methodCall
-    ) operations |
+    ) operations #NotEmpty
+    | #Escape
 ;
 
 methodCall: ('@' TYPE)? '.' methodName=ID '(' (expr (',' expr)*)? ')'

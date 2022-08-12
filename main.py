@@ -20,12 +20,20 @@ def check_types(left_side, right_side):
     return left_side.type == right_side.type
 
 
+def check_for_errors(results):
+    return [check_types(TreeReturn(one_result.type), TreeReturn("Error")) for one_result in results]
+
+
 Attr = namedtuple("Attr", ["name", "type"])
 Method = namedtuple("Method", ["name", "return_type", "args"])
 Formal = namedtuple("Formal", ["name", "type"])
 Feature = namedtuple("Feature", ["attributes", "methods"])
+AttrInfo = namedtuple("AttrInfo", ["type", "valid"])
+
 
 class MyVisitor(MyGrammerVisitor):
+    def check_symbol_table(self, symbol_name):
+        return self.symbol_table.check_for_symbol(symbol_name)
 
     def visitProgram(self, ctx):
         self.type_table = TypeTable()
@@ -67,8 +75,9 @@ class MyVisitor(MyGrammerVisitor):
     def visitFeature(self, ctx):
         if ctx.featureAttr:
             type_name = self.visit(ctx.featureAttr)
-            self.type_table.add_attribute(ctx.name.text, type_name)
-            self.symbol_table.add_symbol(ctx.name.text, type_name)
+            print(f"{ctx.name.text} has type {type_name.valid}")
+            self.type_table.add_attribute(ctx.name.text, type_name.type)
+            self.symbol_table.add_symbol(ctx.name.text, type_name.type)
             return Attr(ctx.name.text, type_name)
         if ctx.featureMethod:
             method = self.visit(ctx.featureMethod)
@@ -78,7 +87,12 @@ class MyVisitor(MyGrammerVisitor):
         return
 
     def visitAttribute(self, ctx):
-        return ctx.typeName.text
+        if ctx.attrExpr:
+            actual_type = self.visit(ctx.attrExpr)
+            print(f"Actual type {actual_type}")
+            has_error = not check_types(actual_type, TreeReturn(ctx.typeName.text)) or actual_type.type == "Error"
+            return AttrInfo(ctx.typeName.text, TreeReturn("Error") if has_error else TreeReturn("Valid"))
+        return AttrInfo(ctx.typeName.text, TreeReturn("Valid"))
 
     def visitMethod(self, ctx):
         self.symbol_table.add_scope()
@@ -100,43 +114,105 @@ class MyVisitor(MyGrammerVisitor):
         return Formal(ctx.name.text, ctx.typeName.text)
 
     def visitMultipleExpr(self, ctx):
+        return_types = []
         for eachExpr in ctx.expr():
-            self.visit(eachExpr)
-        return
+            return_types.append(self.visit(eachExpr))
+        return return_types
 
+    # TODO Pensar retorno de multipleExpr
     def visitExpr(self, ctx):
+        if ctx.nextExpr:
+            result = self.visit(ctx.operations())
+            if result.type != "Escaped" and result.type != "Int":
+                return TreeReturn("Error")
+        if ctx.stringE:
+            return TreeReturn("String")
         if ctx.innerExpr:
-            self.visit(ctx.innerExpr)
+            return self.visit(ctx.innerExpr)
+        if ctx.calls:
+            return_type = self.visit(ctx.calls)
+            return return_type
         if ctx.let:
-            self.visit(ctx.let)
+            return self.visit(ctx.let)
+        if ctx.newDeclaration:
+            return self.visit(ctx.newDeclaration)
+        if ctx.boolE:
+            return TreeReturn("Bool")
+        if ctx.intE:
+            return TreeReturn("Int")
+        return TreeReturn("N/A")
+
+    def visitNotEmpty(self, ctx):
+        if ctx.rightSide:
+            return self.visit(ctx.rightSide)
+        if ctx.mCall:
+            return TreeReturn("Int")
+
+    def visitMethodCall(self, ctx):
         return
 
-    # TODO Add let exprs to symbol table
+    def visitEscape(self, ctx):
+        return TreeReturn("Escaped")
+
+    def visitOverwrite(self, ctx):
+        if not self.check_symbol_table(ctx.name.text):
+            raise NotImplementedError
+        if ctx.attr:
+            actual_type = self.visit(ctx.attr)
+            if check_types(TreeReturn(self.symbol_table.find_symbol(ctx.name.text)), actual_type):
+                return TreeReturn("Valid")
+            else:
+                print("error")
+                return TreeReturn("Error")
+        if ctx.fun:
+            return_type = self.symbol_table.find_symbol(ctx.name.text)
+            return TreeReturn(return_type)
+        if not (ctx.attr or ctx.fun):
+            return TreeReturn(self.symbol_table.find_symbol(ctx.name.text))
+        return
+
     def visitLetExpr(self, ctx):
         self.symbol_table.add_scope()
         print("Current table")
+        exprs = []
         for argExpr in ctx.initialExpr():
-            self.visit(argExpr)
-        pp.pprint(self.symbol_table.get_symbol_table())
+            exprs.append(self.visit(argExpr))
+        for i in exprs:
+            print(i)
+        result = self.visit(ctx.mainExpr)
+        values = check_for_errors(result)
         self.symbol_table.remove_scope()
-        return
+        return TreeReturn("Valid") if sum(values) == 0 else TreeReturn("Error")
+
+    def visitDeclaration(self, ctx):
+        return TreeReturn(ctx.typeName.text)
 
     def visitInitialExpr(self, ctx):
         self.symbol_table.add_symbol(ctx.name.text, ctx.typeName.text)
-        return
+        if ctx.actualExpr:
+            actual_type = self.visit(ctx.actualExpr)
+            has_error = not check_types(actual_type, TreeReturn(ctx.typeName.text)) or actual_type.type == "Error"
+            return TreeReturn("Error") if has_error else TreeReturn("Valid")
+        return TreeReturn("Valid")
+
+    def visitAttrWrite(self, ctx):
+        return_type = self.visit(ctx.attrInner)
+        return return_type
 
 if __name__ == "__main__":
     while 1:
         data =  InputStream("""
 class Radio {
-    currentStation:Int <- 123;
+    currentStation:Int <- 123 + 321;
+    resetStation():Int{
+        5
+    };
     changeStation(arg1:Int, arg2: Int):Int{
         {
-            currentStation <- 321;
-            let letArg1: Int <- 1, letArg2: Int <- 2 in {
-                {
-                    letArg1 <- currentStation + 5;
-                };
+            currentStation <- resetStation();
+            let letArg1: Int <- 123, letArg2: Int <- 2 in {
+                letArg1 <- currentStation;
+                letArg2 <- letArg2;
             };
         }
     };

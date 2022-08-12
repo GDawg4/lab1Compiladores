@@ -89,6 +89,15 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyGrammerParser#boolExpr.
+    def enterBoolExpr(self, ctx:MyGrammerParser.BoolExprContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#boolExpr.
+    def exitBoolExpr(self, ctx:MyGrammerParser.BoolExprContext):
+        pass
+
+
     # Enter a parse tree produced by MyGrammerParser#parenExpr.
     def enterParenExpr(self, ctx:MyGrammerParser.ParenExprContext):
         pass
@@ -188,12 +197,21 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MyGrammerParser#operations.
-    def enterOperations(self, ctx:MyGrammerParser.OperationsContext):
+    # Enter a parse tree produced by MyGrammerParser#NotEmpty.
+    def enterNotEmpty(self, ctx:MyGrammerParser.NotEmptyContext):
         pass
 
-    # Exit a parse tree produced by MyGrammerParser#operations.
-    def exitOperations(self, ctx:MyGrammerParser.OperationsContext):
+    # Exit a parse tree produced by MyGrammerParser#NotEmpty.
+    def exitNotEmpty(self, ctx:MyGrammerParser.NotEmptyContext):
+        pass
+
+
+    # Enter a parse tree produced by MyGrammerParser#Escape.
+    def enterEscape(self, ctx:MyGrammerParser.EscapeContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#Escape.
+    def exitEscape(self, ctx:MyGrammerParser.EscapeContext):
         pass
 
 
