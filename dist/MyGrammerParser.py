@@ -1234,9 +1234,17 @@ class MyGrammerParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.cond = None # ExprContext
+            self.mainExpr = None # ExprContext
 
         def WHILEKEY(self):
             return self.getToken(MyGrammerParser.WHILEKEY, 0)
+
+        def LOOPKEY(self):
+            return self.getToken(MyGrammerParser.LOOPKEY, 0)
+
+        def POOLKEY(self):
+            return self.getToken(MyGrammerParser.POOLKEY, 0)
 
         def expr(self, i:int=None):
             if i is None:
@@ -1244,12 +1252,6 @@ class MyGrammerParser ( Parser ):
             else:
                 return self.getTypedRuleContext(MyGrammerParser.ExprContext,i)
 
-
-        def LOOPKEY(self):
-            return self.getToken(MyGrammerParser.LOOPKEY, 0)
-
-        def POOLKEY(self):
-            return self.getToken(MyGrammerParser.POOLKEY, 0)
 
         def getRuleIndex(self):
             return MyGrammerParser.RULE_whileExpr
@@ -1280,11 +1282,11 @@ class MyGrammerParser ( Parser ):
             self.state = 147
             self.match(MyGrammerParser.WHILEKEY)
             self.state = 148
-            self.expr()
+            localctx.cond = self.expr()
             self.state = 149
             self.match(MyGrammerParser.LOOPKEY)
             self.state = 150
-            self.expr()
+            localctx.mainExpr = self.expr()
             self.state = 151
             self.match(MyGrammerParser.POOLKEY)
         except RecognitionException as re:
@@ -1302,16 +1304,12 @@ class MyGrammerParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.cond = None # ExprContext
+            self.thenExpr = None # ExprContext
+            self.elseExpr = None # ExprContext
 
         def IFKEY(self):
             return self.getToken(MyGrammerParser.IFKEY, 0)
-
-        def expr(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(MyGrammerParser.ExprContext)
-            else:
-                return self.getTypedRuleContext(MyGrammerParser.ExprContext,i)
-
 
         def THENKEY(self):
             return self.getToken(MyGrammerParser.THENKEY, 0)
@@ -1321,6 +1319,13 @@ class MyGrammerParser ( Parser ):
 
         def FIKEY(self):
             return self.getToken(MyGrammerParser.FIKEY, 0)
+
+        def expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(MyGrammerParser.ExprContext)
+            else:
+                return self.getTypedRuleContext(MyGrammerParser.ExprContext,i)
+
 
         def getRuleIndex(self):
             return MyGrammerParser.RULE_ifExpr
@@ -1351,15 +1356,15 @@ class MyGrammerParser ( Parser ):
             self.state = 153
             self.match(MyGrammerParser.IFKEY)
             self.state = 154
-            self.expr()
+            localctx.cond = self.expr()
             self.state = 155
             self.match(MyGrammerParser.THENKEY)
             self.state = 156
-            self.expr()
+            localctx.thenExpr = self.expr()
             self.state = 157
             self.match(MyGrammerParser.ELSEKEY)
             self.state = 158
-            self.expr()
+            localctx.elseExpr = self.expr()
             self.state = 159
             self.match(MyGrammerParser.FIKEY)
         except RecognitionException as re:

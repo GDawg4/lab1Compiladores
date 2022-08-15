@@ -74,15 +74,15 @@ notExpr
 ;
 
 isVoidExpr
-    : (ISVOIDKEY expr)
+    : ISVOIDKEY expr
 ;
 
 whileExpr
-    : (WHILEKEY expr LOOPKEY expr POOLKEY)
+    : (WHILEKEY cond=expr LOOPKEY mainExpr=expr POOLKEY)
 ;
 
 ifExpr
-    : (IFKEY expr THENKEY expr ELSEKEY expr FIKEY)
+    : (IFKEY cond=expr THENKEY thenExpr=expr ELSEKEY elseExpr=expr FIKEY)
 ;
 
 letExpr
