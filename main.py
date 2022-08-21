@@ -53,9 +53,9 @@ class MyVisitor(MyGrammerVisitor):
         # return int(value)
         features_returns = []
         for class_to_visit in ctx.classP():
-            features_returns.append(self.visit(class_to_visit))
+            features_returns.append(sum(check_for_errors(self.visit(class_to_visit))))
         # self.visitChildren(ctx)
-        print(f"PROGRAM RETURN {features_returns}")
+        print(f"Whole program has {sum(features_returns)} errors")
         # print('Classes')
         # pp.pprint(self.type_table.get_classes())
         # print('Methods')
@@ -93,7 +93,6 @@ class MyVisitor(MyGrammerVisitor):
     def visitFeature(self, ctx):
         if ctx.featureAttr:
             type_name = self.visit(ctx.featureAttr)
-            print(f"{ctx.name.text} has type {type_name.valid}")
             self.type_table.add_attribute(ctx.name.text, type_name.type)
             self.symbol_table.add_symbol(ctx.name.text, type_name.type)
             return Attr(ctx.name.text, type_name, type_name.valid)
@@ -101,13 +100,12 @@ class MyVisitor(MyGrammerVisitor):
             method = self.visit(ctx.featureMethod)
             self.type_table.add_method(ctx.name.text, method[1], method[0])
             self.symbol_table.add_symbol(ctx.name.text, method[0])
-            return Method(ctx.name.text, method[0], method[1], "valid")
+            return Method(ctx.name.text, method[0], method[1], method[2])
         return
 
     def visitAttribute(self, ctx):
         if ctx.attrExpr:
             actual_type = self.visit(ctx.attrExpr)
-            print(f"Actual type {actual_type}")
             has_error = not check_types(actual_type, TreeReturn(ctx.typeName.text)) or actual_type.type == "Error"
             return AttrInfo(ctx.typeName.text, TreeReturn("Error") if has_error else TreeReturn("Valid"))
         return AttrInfo(ctx.typeName.text, TreeReturn("Valid"))
@@ -116,9 +114,8 @@ class MyVisitor(MyGrammerVisitor):
         self.symbol_table.add_scope()
         arguments = self.visit(ctx.argumentList)
         has_error = self.visit(ctx.mainExpr)
-        print(f"Method has error {has_error}")
         self.symbol_table.remove_scope()
-        return ctx.returnType.text, arguments
+        return ctx.returnType.text, arguments, has_error
 
     def visitArguments(self, ctx):
         arguments = []
@@ -136,7 +133,7 @@ class MyVisitor(MyGrammerVisitor):
         return_types = []
         for eachExpr in ctx.expr():
             return_types.append(self.visit(eachExpr))
-        return return_types
+        return TreeReturn("Error") if sum(check_for_errors(return_types)) else TreeReturn("Valid")
 
     # TODO Pensar retorno de multipleExpr
     def visitExpr(self, ctx):
@@ -190,12 +187,14 @@ class MyVisitor(MyGrammerVisitor):
         condition_type = self.visit(ctx.cond)
         then_type = self.visit(ctx.thenExpr)
         else_type = self.visit(ctx.elseExpr)
-        return TreeReturn("Valid")
+        has_error = check_types(condition_type, TreeReturn("Error")) or check_types(then_type, TreeReturn("Error")) or check_types(else_type, TreeReturn("Error"))
+        return TreeReturn("Error") if has_error else TreeReturn("Valid")
 
     def visitWhileExpr(self, ctx):
         condition_type = self.visit(ctx.cond)
         main_type = self.visit(ctx.mainExpr)
-        return TreeReturn("Valid")
+        has_error = check_types(condition_type, TreeReturn("Error")) or check_types(main_type, TreeReturn("Error"))
+        return TreeReturn("Error") if has_error else TreeReturn("Valid")
 
     def visitNotExpr(self, ctx):
         return self.visit(ctx.expr())
@@ -205,13 +204,12 @@ class MyVisitor(MyGrammerVisitor):
 
     def visitOverwrite(self, ctx):
         if not self.check_symbol_table(ctx.name.text):
-            raise NotImplementedError
+            return TreeReturn("Error")
         if ctx.attr:
             actual_type = self.visit(ctx.attr)
             if check_types(TreeReturn(self.symbol_table.find_symbol(ctx.name.text)), actual_type):
                 return TreeReturn("Valid")
             else:
-                print("error")
                 return TreeReturn("Error")
         if ctx.fun:
             return_type = self.symbol_table.find_symbol(ctx.name.text)
@@ -222,16 +220,15 @@ class MyVisitor(MyGrammerVisitor):
 
     def visitLetExpr(self, ctx):
         self.symbol_table.add_scope()
-        print("Current table")
         exprs = []
         for argExpr in ctx.initialExpr():
             exprs.append(self.visit(argExpr))
         for i in exprs:
-            print(i)
+            print(i, ctx.start.line)
         result = self.visit(ctx.mainExpr)
-        values = check_for_errors(result)
+        values = check_types(result, TreeReturn("Error"))
         self.symbol_table.remove_scope()
-        return TreeReturn("Valid") if sum(values) == 0 else TreeReturn("Error")
+        return TreeReturn("Error") if values else TreeReturn("Valid")
 
     def visitDeclaration(self, ctx):
         return TreeReturn(ctx.typeName.text)

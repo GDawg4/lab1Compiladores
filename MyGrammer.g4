@@ -92,10 +92,6 @@ initialExpr
     : name=ID ':' typeName=TYPE ('<-' actualExpr=expr)?
 ;
 
-followingExpr
-    : (',' initialExpr)*
-;
-
 declaration
     : NEWKEY typeName=TYPE
 ;
