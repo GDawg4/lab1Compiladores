@@ -114,7 +114,7 @@ class MyVisitor(MyGrammerVisitor):
             actual_type = self.visit(ctx.attrExpr)
             print(f"Actual_type {actual_type} declared_type {ctx.typeName.text}")
             print(f"Inherits {self.check_inheritance(ctx.typeName.text, actual_type.type)}")
-            has_error = not check_types(actual_type, TreeReturn(ctx.typeName.text)) or actual_type.type == "Error"
+            has_error = not (check_types(actual_type, TreeReturn(ctx.typeName.text)) or self.check_inheritance(ctx.typeName.text, actual_type.type)) or actual_type.type == "Error"
             if has_error:
                 print(f"ERROR in line {ctx.start.line} declared type {ctx.typeName.text} does not match with actual type {actual_type.type}")
             return AttrInfo(ctx.typeName.text, TreeReturn("Error") if has_error else TreeReturn("Valid"))
@@ -196,7 +196,7 @@ class MyVisitor(MyGrammerVisitor):
 
     def visitMethodCall(self, ctx):
         if ctx.methodName.text not in self.type_table.get_methods():
-            print("Error")
+            print(f"ERROR in line {ctx.start.line} method does not exist")
             return TreeReturn("Error")
         print(f"In MCall {ctx.methodName.text} {self.type_table.get_methods()[ctx.methodName.text]['return_type']}")
         return TreeReturn(self.type_table.get_methods()[ctx.methodName.text]['return_type'])
@@ -299,7 +299,9 @@ class Radio {
 };
 
 class Toshiba INHERITS Radio {
-    
+    getCurrent():Int{
+        currentStation + 5
+    };
 };
 
 class Car {
@@ -320,7 +322,7 @@ class Main inherits IO {
     myCar: Car <- new Car;
     main() : SELF_TYPE {
         {
-            out_string(myCar.getCurrentStation());
+            myCar.getCurrentStation();
         }
     };
 };
