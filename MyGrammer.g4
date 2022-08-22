@@ -5,7 +5,7 @@ program
     :   (meat=classP end=';')+;
 
 classP
-    :   CLASSKEY name=TYPE (INHERITSKEY TYPE)? '{' features '}'
+    :   CLASSKEY name=TYPE (INHERITSKEY inheritName=TYPE)? '{' features '}'
 ;
 
 features:

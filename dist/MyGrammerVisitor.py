@@ -99,11 +99,6 @@ class MyGrammerVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MyGrammerParser#followingExpr.
-    def visitFollowingExpr(self, ctx:MyGrammerParser.FollowingExprContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MyGrammerParser#declaration.
     def visitDeclaration(self, ctx:MyGrammerParser.DeclarationContext):
         return self.visitChildren(ctx)

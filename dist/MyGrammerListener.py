@@ -170,15 +170,6 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MyGrammerParser#followingExpr.
-    def enterFollowingExpr(self, ctx:MyGrammerParser.FollowingExprContext):
-        pass
-
-    # Exit a parse tree produced by MyGrammerParser#followingExpr.
-    def exitFollowingExpr(self, ctx:MyGrammerParser.FollowingExprContext):
-        pass
-
-
     # Enter a parse tree produced by MyGrammerParser#declaration.
     def enterDeclaration(self, ctx:MyGrammerParser.DeclarationContext):
         pass
