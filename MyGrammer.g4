@@ -109,7 +109,7 @@ operations
             |   STAR 
             |   SLASH 
             |   LOWERTHAN
-            |   EQUALS
+            |   equal = EQUALS
             |   LOWEREQUAL
         )
         rightSide = expr

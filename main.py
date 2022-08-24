@@ -42,7 +42,7 @@ Feature = namedtuple("Feature", ["attributes", "methods", "valid"])
 AttrInfo = namedtuple("AttrInfo", ["type", "valid"])
 MethodInfo = namedtuple("MethodInfo", ["valid"])
 
-
+# TODO: Revisar si m_todos ya existen con herencia, validar tipos en if y while
 class MyVisitor(MyGrammerVisitor):
     def check_symbol_table(self, symbol_name):
         return self.symbol_table.check_for_symbol(symbol_name)
@@ -76,10 +76,12 @@ class MyVisitor(MyGrammerVisitor):
         self.symbol_table.add_scope()
         class_name = ctx.name.text
         self.current_class = class_name
-        result = self.visit(ctx.features())
         inherits = None
+        self.inherits_from = None
         if ctx.inheritName:
             inherits = ctx.inheritName.text
+            self.inherits_from = ctx.inheritName.text
+        result = self.visit(ctx.features())
         self.type_table.add_type(class_name, result.attributes, result.methods, inheritance=inherits)
         self.symbol_table.remove_scope()
         return result.valid
@@ -110,6 +112,13 @@ class MyVisitor(MyGrammerVisitor):
                 return Attr(ctx.name.text, type_name, type_name.valid)
         if ctx.featureMethod:
             method = self.visit(ctx.featureMethod)
+            exists_in_parent = self.type_table.exists_in_parent(self.inherits_from, ctx.name.text)
+            if exists_in_parent:
+                old_arguments = self.type_table.get_methods()[ctx.name.text]['arguments']
+                old_return = self.type_table.get_methods()[ctx.name.text]['return_type']
+                has_same_signature = old_return == method[0] and old_arguments == method[1]
+                if not has_same_signature:
+                    print(F"ERROR in line {ctx.start.line} method {ctx.start.line} already declared with different signature")
             if already_exists:
                 print(f"ERROR in line {ctx.start.line} method {ctx.name.text} already declared")
             else:
@@ -165,6 +174,8 @@ class MyVisitor(MyGrammerVisitor):
                     return TreeReturn("Error")
             else:
                 method_return = result
+            if result.type == "Bool":
+                return TreeReturn("Bool")
         if ctx.stringE:
             return TreeReturn("String")
         if ctx.ifE:
@@ -196,6 +207,8 @@ class MyVisitor(MyGrammerVisitor):
 
     def visitNotEmpty(self, ctx):
         if ctx.rightSide:
+            if ctx.equal:
+                return True, TreeReturn("Bool")
             return True, self.visit(ctx.rightSide)
         if ctx.mCall:
             # print(f"MCall returned {self.visit(ctx.mCall)}")
@@ -237,12 +250,13 @@ class MyVisitor(MyGrammerVisitor):
         condition_type = self.visit(ctx.cond)
         then_type = self.visit(ctx.thenExpr)
         else_type = self.visit(ctx.elseExpr)
-        has_if_error = check_types(condition_type, TreeReturn("Error"))
+        print(f"CONDITIONAL HAS  TYPE {condition_type}")
+        has_if_error = check_types(condition_type, TreeReturn("Error")) or not check_types(condition_type, TreeReturn("Bool"))
         has_then_error = check_types(then_type, TreeReturn("Error"))
         has_else_error = check_types(else_type, TreeReturn("Error"))
         has_error = has_if_error or has_then_error or has_else_error
         if has_if_error:
-            print(f"ERROR in line {ctx.start.line} if expression is invalid")
+            print(f"ERROR in line {ctx.start.line} conditional not Bool")
         if has_then_error:
             print(f"ERROR in line {ctx.start.line} then expression is invalid")
         if has_else_error:
@@ -252,11 +266,11 @@ class MyVisitor(MyGrammerVisitor):
     def visitWhileExpr(self, ctx):
         condition_type = self.visit(ctx.cond)
         main_type = self.visit(ctx.mainExpr)
-        has_cond_error = check_types(condition_type, TreeReturn("Error"))
+        has_cond_error = check_types(condition_type, TreeReturn("Error")) or not check_types(condition_type, TreeReturn("Bool"))
         has_main_error = check_types(main_type, TreeReturn("Error"))
         has_error = has_cond_error or has_main_error
         if has_cond_error:
-            print(f"ERROR in line {ctx.start.line} conditional expression is invalid")
+            print(f"ERROR in line {ctx.start.line} conditional not Bool")
         if has_main_error:
             print(f"ERROR in line {ctx.start.line} main expression is invalid")
         return TreeReturn("Error") if has_error else TreeReturn("Valid")
@@ -268,7 +282,11 @@ class MyVisitor(MyGrammerVisitor):
         return self.visit(ctx.expr())
 
     def visitOverwrite(self, ctx):
-        if not self.check_symbol_table(ctx.name.text):
+        parent_class = None
+        if self.inherits_from:
+            parent_class = self.type_table.get_classes()[self.inherits_from]
+        if not self.check_symbol_table(ctx.name.text) and not self.type_table.exists_in_parent(self.inherits_from, ctx.name.text):
+            # print(f"Class {ctx.name.text} inherits {self.type_table.exists_in_parent(self.inherits_from, 'currentStation')}")
             print(f"ERROR in line {ctx.start.line} {ctx.name.text} in class {self.current_class} not defined")
             return TreeReturn("Error")
         if ctx.attr:

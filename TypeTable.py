@@ -144,7 +144,20 @@ class TypeTable:
                 if self.classes[current_level]['inheritance'] == father:
                     return True
                 else:
-                    current_level = self.classes[current_level]['inheritancet']
+                    current_level = self.classes[current_level]['inheritance']
             else:
                 return False
         return False
+
+    def exists_in_parent(self, child, thing):
+        current = child
+        attrs = []
+        methods = []
+        while True:
+            if current in self.classes or current is not None:
+                attrs += self.classes[current]['attributes']
+                methods += self.classes[current]['methods']
+                current = self.classes[current]['inheritance']
+            else:
+                break
+        return thing in attrs or thing in methods
