@@ -118,7 +118,12 @@ operations
     | #Escape
 ;
 
-methodCall: ('@' TYPE)? '.' methodName=ID '(' (expr (',' expr)*)? ')'
+methodCall
+    : heritage=atOperator? '.' methodName=ID '(' (expr (',' expr)*)? ')'
+;
+
+atOperator
+    : '@' parentName=TYPE
 ;
 
 overwrite

@@ -11,6 +11,7 @@ from TypeTable import TypeTable
 from SymbolTable import SymbolTable
 from TreeReturn import TreeReturn
 from collections import namedtuple
+import numpy as np
 
 from kivy.app import App
 from kivy.uix.widget import Widget
@@ -74,6 +75,7 @@ class MyVisitor(MyGrammerVisitor):
     def visitClassP(self, ctx):
         self.symbol_table.add_scope()
         class_name = ctx.name.text
+        self.current_class = class_name
         result = self.visit(ctx.features())
         inherits = None
         if ctx.inheritName:
@@ -97,23 +99,28 @@ class MyVisitor(MyGrammerVisitor):
         return Feature(attributes, methods, validity)
 
     def visitFeature(self, ctx):
+        already_exists = self.symbol_table.check_for_symbol(ctx.name.text)
         if ctx.featureAttr:
             type_name = self.visit(ctx.featureAttr)
-            self.type_table.add_attribute(ctx.name.text, type_name.type)
-            self.symbol_table.add_symbol(ctx.name.text, type_name.type)
-            return Attr(ctx.name.text, type_name, type_name.valid)
+            if already_exists:
+                print(f"ERROR in line {ctx.start.line} attribute {ctx.name.text} already declared")
+            else:
+                self.type_table.add_attribute(ctx.name.text, type_name.type)
+                self.symbol_table.add_symbol(ctx.name.text, type_name.type)
+                return Attr(ctx.name.text, type_name, type_name.valid)
         if ctx.featureMethod:
             method = self.visit(ctx.featureMethod)
-            self.type_table.add_method(ctx.name.text, method[1], method[0])
-            self.symbol_table.add_symbol(ctx.name.text, method[0])
-            return Method(ctx.name.text, method[0], method[1], method[2])
+            if already_exists:
+                print(f"ERROR in line {ctx.start.line} method {ctx.name.text} already declared")
+            else:
+                self.type_table.add_method(ctx.name.text, method[1], method[0])
+                self.symbol_table.add_symbol(ctx.name.text, method[0])
+                return Method(ctx.name.text, method[0], method[1], method[2])
         return
 
     def visitAttribute(self, ctx):
         if ctx.attrExpr:
             actual_type = self.visit(ctx.attrExpr)
-            print(f"Actual_type {actual_type} declared_type {ctx.typeName.text}")
-            print(f"Inherits {self.check_inheritance(ctx.typeName.text, actual_type.type)}")
             has_error = not (check_types(actual_type, TreeReturn(ctx.typeName.text)) or self.check_inheritance(ctx.typeName.text, actual_type.type)) or actual_type.type == "Error"
             if has_error:
                 print(f"ERROR in line {ctx.start.line} declared type {ctx.typeName.text} does not match with actual type {actual_type.type}")
@@ -198,8 +205,27 @@ class MyVisitor(MyGrammerVisitor):
         if ctx.methodName.text not in self.type_table.get_methods():
             print(f"ERROR in line {ctx.start.line} method does not exist")
             return TreeReturn("Error")
-        print(f"In MCall {ctx.methodName.text} {self.type_table.get_methods()[ctx.methodName.text]['return_type']}")
+        if ctx.heritage:
+            h_result = self.visit(ctx.heritage)
+            if check_types(h_result, TreeReturn("Error")):
+                print(f"ERROR in line {ctx.start.line} does not inherit")
+        method_arguments = self.type_table.get_methods()[ctx.methodName.text]['arguments']
+        method_types = [self.type_table.get_arguments()[method_type]['type'] for method_type in method_arguments]
+        actual_types = []
+        for expr in ctx.expr():
+            actual_types.append(self.visit(expr).type)
+        is_correct_size = len(method_arguments) == len (actual_types)
+        is_correct_type = np.array_equal(method_types, actual_types)
+        has_correct_args = is_correct_size and is_correct_type
+        if not has_correct_args:
+            print(f"ERROR in line {ctx.start.line} method has incorrect arguments")
+        # print(f"Method {ctx.methodName.text} has arguments {method_arguments} of type {method_types} and actual args {actual_types} and is correct: {has_correct_args}")
         return TreeReturn(self.type_table.get_methods()[ctx.methodName.text]['return_type'])
+
+    def visitAtOperator(self, ctx):
+        parent_name = ctx.parentName.text
+        found = self.type_table.type_exists(parent_name)
+        return TreeReturn("Valid") if found else TreeReturn("Error")
 
     def visitEscape(self, ctx):
         return False, TreeReturn("Escaped")
@@ -211,13 +237,28 @@ class MyVisitor(MyGrammerVisitor):
         condition_type = self.visit(ctx.cond)
         then_type = self.visit(ctx.thenExpr)
         else_type = self.visit(ctx.elseExpr)
-        has_error = check_types(condition_type, TreeReturn("Error")) or check_types(then_type, TreeReturn("Error")) or check_types(else_type, TreeReturn("Error"))
+        has_if_error = check_types(condition_type, TreeReturn("Error"))
+        has_then_error = check_types(then_type, TreeReturn("Error"))
+        has_else_error = check_types(else_type, TreeReturn("Error"))
+        has_error = has_if_error or has_then_error or has_else_error
+        if has_if_error:
+            print(f"ERROR in line {ctx.start.line} if expression is invalid")
+        if has_then_error:
+            print(f"ERROR in line {ctx.start.line} then expression is invalid")
+        if has_else_error:
+            print(f"ERROR in line {ctx.start.line} else expression is invalid")
         return TreeReturn("Error") if has_error else TreeReturn("Valid")
 
     def visitWhileExpr(self, ctx):
         condition_type = self.visit(ctx.cond)
         main_type = self.visit(ctx.mainExpr)
-        has_error = check_types(condition_type, TreeReturn("Error")) or check_types(main_type, TreeReturn("Error"))
+        has_cond_error = check_types(condition_type, TreeReturn("Error"))
+        has_main_error = check_types(main_type, TreeReturn("Error"))
+        has_error = has_cond_error or has_main_error
+        if has_cond_error:
+            print(f"ERROR in line {ctx.start.line} conditional expression is invalid")
+        if has_main_error:
+            print(f"ERROR in line {ctx.start.line} main expression is invalid")
         return TreeReturn("Error") if has_error else TreeReturn("Valid")
 
     def visitNotExpr(self, ctx):
@@ -228,7 +269,7 @@ class MyVisitor(MyGrammerVisitor):
 
     def visitOverwrite(self, ctx):
         if not self.check_symbol_table(ctx.name.text):
-            print(f"ERROR in line {ctx.start.line} {ctx.name.text} not defined")
+            print(f"ERROR in line {ctx.start.line} {ctx.name.text} in class {self.current_class} not defined")
             return TreeReturn("Error")
         if ctx.attr:
             actual_type = self.visit(ctx.attr)
@@ -236,7 +277,7 @@ class MyVisitor(MyGrammerVisitor):
             if check_types(TreeReturn(symbol_table), actual_type):
                 return TreeReturn("Valid")
             else:
-                print(f"ERROR in line {ctx.start.line} declared type2 {symbol_table} does not match {actual_type}")
+                print(f"ERROR in line {ctx.start.line} declared type {symbol_table} does not match {actual_type}")
                 return TreeReturn("Error")
         if ctx.fun:
             return_type = self.symbol_table.find_symbol(ctx.name.text)
@@ -269,6 +310,8 @@ class MyVisitor(MyGrammerVisitor):
         if ctx.actualExpr:
             actual_type = self.visit(ctx.actualExpr)
             has_error = not check_types(actual_type, TreeReturn(ctx.typeName.text)) or actual_type.type == "Error"
+            if has_error:
+                print(f"ERROR in line {ctx.start.line} declared type does not match actual type")
             return TreeReturn("Error") if has_error else TreeReturn("Valid")
         return TreeReturn("Valid")
 
@@ -309,11 +352,11 @@ class Car {
     currentStation: Int;
     changeRadio(): Int{
         {
-            currentStation <- myRadio.getCurrent();
+            currentStation <- myRadio@Radio.getCurrent();
             if currentStation = 60 then 61 else 59 fi;           
         }
     };
-    getCurrentStation(): Int {
+    getCurrentStation(argument1: Int): Int {
         currentStation
     };
 };
@@ -322,7 +365,7 @@ class Main inherits IO {
     myCar: Car <- new Car;
     main() : SELF_TYPE {
         {
-            myCar.getCurrentStation();
+            myCar.getCurrentStation(123);
         }
     };
 };

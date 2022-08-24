@@ -97,8 +97,8 @@ def serializedATN():
         buf.write("\7w\2\2\u00a9\u00aa\7g\2\2\u00aa\24\3\2\2\2\u00ab\u00ac")
         buf.write("\7h\2\2\u00ac\u00ad\7c\2\2\u00ad\u00ae\7n\2\2\u00ae\u00af")
         buf.write("\7u\2\2\u00af\u00b0\7g\2\2\u00b0\26\3\2\2\2\u00b1\u00b2")
-        buf.write("\7\u0080\2\2\u00b2\30\3\2\2\2\u00b3\u00b4\7B\2\2\u00b4")
-        buf.write("\32\3\2\2\2\u00b5\u00b6\7\60\2\2\u00b6\34\3\2\2\2\u00b7")
+        buf.write("\7\u0080\2\2\u00b2\30\3\2\2\2\u00b3\u00b4\7\60\2\2\u00b4")
+        buf.write("\32\3\2\2\2\u00b5\u00b6\7B\2\2\u00b6\34\3\2\2\2\u00b7")
         buf.write("\u00b8\t\2\2\2\u00b8\36\3\2\2\2\u00b9\u00ba\t\3\2\2\u00ba")
         buf.write(" \3\2\2\2\u00bb\u00bc\t\4\2\2\u00bc\"\3\2\2\2\u00bd\u00be")
         buf.write("\t\5\2\2\u00be$\3\2\2\2\u00bf\u00c0\t\6\2\2\u00c0&\3\2")
@@ -252,7 +252,7 @@ class MyGrammerLexer(Lexer):
 
     literalNames = [ "<INVALID>",
             "';'", "'{'", "'}'", "'('", "')'", "':'", "','", "'<-'", "'true'", 
-            "'false'", "'~'", "'@'", "'.'", "'+'", "'-'", "'*'", "'/'", 
+            "'false'", "'~'", "'.'", "'@'", "'+'", "'-'", "'*'", "'/'", 
             "'<'", "'='", "'<='" ]
 
     symbolicNames = [ "<INVALID>",

@@ -3,24 +3,111 @@ class TypeTable:
         self.classes = {
             'Object': {
                 'name': 'Object',
-                'inheritance': None
+                'inheritance': None,
+                'attributes': [],
+                'methods': ['abort', 'type_name', 'copy'],
             },
             'Int': {
                 'name': 'Int',
-                'inheritance': 'Object'
+                'inheritance': 'Object',
+                'attributes': [],
+                'methods': []
             },
             'Bool': {
                 'name': 'Bool',
-                'inheritance': 'Object'
+                'inheritance': 'Object',
+                'attributes': [],
+                'methods': []
             },
             'String': {
                 'name': 'String',
-                'inheritance': 'Object'
+                'inheritance': 'Object',
+                'attributes': [],
+                'methods': []
+            },
+            'IO': {
+                'name': 'IO',
+                'inheritance': 'Object',
+                'attributes': [],
+                'methods': ['out_string', 'out_int', 'in_string', 'in_int']
             }
         }
-        self.methods = {}
-        self.attributes = {}
-        self.arguments = {}
+        self.methods = {
+            'abort': {
+                'name': 'abort',
+                'arguments': [],
+                'return_type': 'Object'
+            },
+            'type_name': {
+                'name': 'type_name',
+                'arguments': [],
+                'return_type': 'String'
+            },
+            'copy': {
+                'name': 'copy',
+                'arguments': [],
+                'return_type': 'SELF_TYPE'
+            },
+            'out_string': {
+                'name': 'out_string',
+                'arguments': ['xS'],
+                'return_type': 'SELF_TYPE'
+            },
+            'out_int': {
+                'name': 'out_int',
+                'arguments': ['xI'],
+                'return_type': 'SELF_TYPE'
+            },
+            'in_string': {
+                'name': 'in_string',
+                'arguments': [],
+                'return_type': 'String'
+            },
+            'in_int': {
+                'name': 'in_int',
+                'arguments': [],
+                'return_type': 'Int'
+            },
+            'length': {
+                'name': 'length',
+                'arguments': [],
+                'return_type': 'Int'
+            },
+            'concat': {
+                'name': 'concat',
+                'arguments': ['sCon'],
+                'return_type': 'String'
+            },
+            'substr': {
+                'name': 'substr',
+                'arguments': ['iSub', 'lSub'],
+                'return_type': 'String'
+            }
+        }
+        self.attributes = {
+        }
+        self.arguments = {
+            'xS': {
+                'name': 'xS',
+                'type': 'String'
+            },
+            'xI': {
+                'name': 'xI',
+                'type': 'Int'
+            },
+            'sCon': {
+                'name': 'sCon',
+                'type': 'String'
+            },
+            'iSub': {
+                'name': 'iSub',
+                'type': 'Int'
+            },
+            'lSub': {
+                'name': 'lSub',
+                'type': 'Int'
+            }
+        }
 
     def get_classes(self):
         return self.classes
@@ -57,7 +144,7 @@ class TypeTable:
                 if self.classes[current_level]['inheritance'] == father:
                     return True
                 else:
-                    current_level = self.classes[current_level]['inheritance']
+                    current_level = self.classes[current_level]['inheritancet']
             else:
                 return False
         return False

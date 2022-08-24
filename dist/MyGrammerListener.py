@@ -215,6 +215,15 @@ class MyGrammerListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by MyGrammerParser#atOperator.
+    def enterAtOperator(self, ctx:MyGrammerParser.AtOperatorContext):
+        pass
+
+    # Exit a parse tree produced by MyGrammerParser#atOperator.
+    def exitAtOperator(self, ctx:MyGrammerParser.AtOperatorContext):
+        pass
+
+
     # Enter a parse tree produced by MyGrammerParser#overwrite.
     def enterOverwrite(self, ctx:MyGrammerParser.OverwriteContext):
         pass

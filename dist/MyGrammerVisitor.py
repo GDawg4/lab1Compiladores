@@ -124,6 +124,11 @@ class MyGrammerVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MyGrammerParser#atOperator.
+    def visitAtOperator(self, ctx:MyGrammerParser.AtOperatorContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MyGrammerParser#overwrite.
     def visitOverwrite(self, ctx:MyGrammerParser.OverwriteContext):
         return self.visitChildren(ctx)
