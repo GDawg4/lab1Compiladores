@@ -122,6 +122,8 @@ class MyVisitor(MyGrammerVisitor):
             if already_exists:
                 print(f"ERROR in line {ctx.start.line} method {ctx.name.text} already declared")
             else:
+                if method[0] != method[2].type:
+                    print(f"ERROR in line {ctx.start.line} method {ctx.name.text} declared {method[0]} does not match {method[2]}")
                 self.type_table.add_method(ctx.name.text, method[1], method[0])
                 self.symbol_table.add_symbol(ctx.name.text, method[0])
                 return Method(ctx.name.text, method[0], method[1], method[2])
@@ -159,7 +161,7 @@ class MyVisitor(MyGrammerVisitor):
         return_types = []
         for eachExpr in ctx.expr():
             return_types.append(self.visit(eachExpr))
-        return TreeReturn("Error") if sum(check_for_errors(return_types)) else TreeReturn("Valid")
+        return TreeReturn("Error") if sum(check_for_errors(return_types)) else return_types[-1]
 
     # TODO Pensar retorno de multipleExpr
     def visitExpr(self, ctx):
@@ -250,7 +252,6 @@ class MyVisitor(MyGrammerVisitor):
         condition_type = self.visit(ctx.cond)
         then_type = self.visit(ctx.thenExpr)
         else_type = self.visit(ctx.elseExpr)
-        print(f"CONDITIONAL HAS  TYPE {condition_type}")
         has_if_error = check_types(condition_type, TreeReturn("Error")) or not check_types(condition_type, TreeReturn("Bool"))
         has_then_error = check_types(then_type, TreeReturn("Error"))
         has_else_error = check_types(else_type, TreeReturn("Error"))
@@ -261,7 +262,11 @@ class MyVisitor(MyGrammerVisitor):
             print(f"ERROR in line {ctx.start.line} then expression is invalid")
         if has_else_error:
             print(f"ERROR in line {ctx.start.line} else expression is invalid")
-        return TreeReturn("Error") if has_error else TreeReturn("Valid")
+        if has_error:
+            return TreeReturn("Error")
+        if check_types(else_type, then_type):
+            return else_type
+        return TreeReturn("Object")
 
     def visitWhileExpr(self, ctx):
         condition_type = self.visit(ctx.cond)
@@ -429,28 +434,6 @@ class Main inherits IO {
         output = visitor.visit(tree)
         print(F"OUTPUT{output}")
 
-if __name__ == "__main__":
-    while 1:
-        data =  InputStream("""
-class Radio {
-    currentStation:Int <- 123 + 321;
-    resetStation():Int{
-        5
-    };
-    changeStation(arg1:Int, arg2: Int):Int{
-        {
-            currentStation <- resetStation();
-            let letArg1: Int <- 123, letArg2: Int <- 2 in {
-                letArg1 <- currentStation;
-                letArg2 <- letArg2;
-            };
-        }
-    };
-};
 
-class Car {
-    myRadio: Radio <- new Radio;
-};
-""")
-        break
+if __name__ == "__main__":
     PongApp().run()
