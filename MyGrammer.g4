@@ -40,6 +40,7 @@ expr
     :
     (
             calls=overwrite
+        |   selfE = 'self'
         |   stringE = STRING
         |   ifE = ifExpr
         |   whileE = whileExpr
@@ -108,9 +109,11 @@ operations
             |   MINUS
             |   STAR 
             |   SLASH 
-            |   LOWERTHAN
+            |   lower = LOWERTHAN
+            |   greater = GREATERTHAN
             |   equal = EQUALS
-            |   LOWEREQUAL
+            |   lowerE = LOWEREQUAL
+            |   greaterE = GREATEREQUAL
         )
         rightSide = expr
         | mCall = methodCall
@@ -183,8 +186,10 @@ MINUS           : '-';
 STAR            : '*';
 SLASH           : '/';
 LOWERTHAN       : '<';
+GREATERTHAN     : '>';
 EQUALS          : '=';
 LOWEREQUAL      : '<=';
+GREATEREQUAL    : '>=';
 
 IFKEY           : I F;
 LOOPKEY         : L O O P;

@@ -1,6 +1,15 @@
 class SymbolTable:
     def __init__(self):
-        self.symbol_table = []
+        self.symbol_table = [
+            {
+                'out_string': {
+                    'name': 'out_string', 'type': 'SELF_TYPE'
+                },
+                'abort': {
+                    'name': 'abort', 'type': 'Object'
+                }
+            }
+        ]
 
     def get_symbol_table(self):
         return self.symbol_table
