@@ -35,11 +35,11 @@ def check_for_errors(results):
     return [check_types(TreeReturn(one_result.type), TreeReturn("Error")) for one_result in results]
 
 
-Attr = namedtuple("Attr", ["name", "type", "valid"])
+Attr = namedtuple("Attr", ["name", "type", "valid", "size"], defaults=("Attr", "Object", True, 0))
 Method = namedtuple("Method", ["name", "return_type", "args", "valid"])
 Formal = namedtuple("Formal", ["name", "type"])
-Feature = namedtuple("Feature", ["attributes", "methods", "valid"])
-AttrInfo = namedtuple("AttrInfo", ["type", "valid"])
+Feature = namedtuple("Feature", ["attributes", "methods", "valid", "size"])
+AttrInfo = namedtuple("AttrInfo", ["type", "valid", "size"], defaults=("Valid", True, 0))
 MethodInfo = namedtuple("MethodInfo", ["valid"])
 
 # TODO: Revisar si m_todos ya existen con herencia, validar tipos en if y while
@@ -63,8 +63,8 @@ class MyVisitor(MyGrammerVisitor):
             print(f"ERROR in program, main does not exist")
         # self.visitChildren(ctx)
         # print(f"Whole program has {sum(features_returns)} errors")
-        # print('Classes')
-        # pp.pprint(self.type_table.get_classes())
+        print('Classes')
+        pp.pprint(self.type_table.get_classes())
         # print('Methods')
         # pp.pprint(self.type_table.get_methods())
         # print('Attributes')
@@ -92,7 +92,8 @@ class MyVisitor(MyGrammerVisitor):
         if ctx.inheritName and not exists:
             print(f"ERROR in line {ctx.start.line} class inherited does not exist")
         result = self.visit(ctx.features())
-        self.type_table.add_type(class_name, result.attributes, result.methods, inheritance=inherits)
+        print(f"Class {ctx.name.text} has size {result.size}")
+        self.type_table.add_type(class_name, result.attributes, result.methods, inheritance=inherits, size=result.size)
         self.symbol_table.remove_scope()
         return result.valid
 
@@ -100,15 +101,17 @@ class MyVisitor(MyGrammerVisitor):
         attributes = []
         methods = []
         validity = []
+        total_size = 0
         for feature in ctx.feature():
             result = self.visit(feature)
             if type(result).__name__ == "Attr":
                 attributes.append(result.name)
                 validity.append(result.valid)
+                total_size += result.size
             if type(result).__name__ == "Method":
                 methods.append(result.name)
                 validity.append(result.valid)
-        return Feature(attributes, methods, validity)
+        return Feature(attributes, methods, validity, total_size)
 
     def visitFeature(self, ctx):
         already_exists = self.symbol_table.check_for_symbol(ctx.name.text)
@@ -118,8 +121,8 @@ class MyVisitor(MyGrammerVisitor):
                 print(f"ERROR in line {ctx.start.line} attribute {ctx.name.text} already declared")
             else:
                 self.type_table.add_attribute(ctx.name.text, type_name.type)
-                self.symbol_table.add_symbol(ctx.name.text, type_name.type)
-                return Attr(ctx.name.text, type_name, type_name.valid)
+                self.symbol_table.add_symbol(ctx.name.text, type_name.type, size=self.type_table.get_size(type_name.type))
+                return Attr(ctx.name.text, type_name, type_name.valid, type_name.size)
         if ctx.featureMethod:
             self.current_method_name = ctx.name.text
             method = self.visit(ctx.featureMethod)
@@ -148,8 +151,8 @@ class MyVisitor(MyGrammerVisitor):
             has_error = not (check_types(actual_type, TreeReturn(ctx.typeName.text)) or self.check_inheritance(ctx.typeName.text, actual_type.type)) or actual_type.type == "Error"
             if has_error:
                 print(f"ERROR in line {ctx.start.line} declared type {ctx.typeName.text} does not match with actual type {actual_type.type}")
-            return AttrInfo(ctx.typeName.text, TreeReturn("Error") if has_error else TreeReturn("Valid"))
-        return AttrInfo(ctx.typeName.text, TreeReturn("Valid"))
+            return AttrInfo(ctx.typeName.text, TreeReturn("Error") if has_error else TreeReturn("Valid"), self.type_table.get_size(ctx.typeName.text))
+        return AttrInfo(ctx.typeName.text, TreeReturn("Valid"), self.type_table.get_size(ctx.typeName.text))
 
     def visitMethod(self, ctx):
         self.symbol_table.add_scope()
@@ -164,7 +167,7 @@ class MyVisitor(MyGrammerVisitor):
         for arg in ctx.formal():
             returned_arguments = self.visit(arg)
             arguments.append(returned_arguments.name)
-            self.symbol_table.add_symbol(returned_arguments.name, returned_arguments.type)
+            self.symbol_table.add_symbol(returned_arguments.name, returned_arguments.type, size=self.type_table.get_size(returned_arguments.type))
         return arguments
 
     def visitFormal(self, ctx):
@@ -384,9 +387,9 @@ class MyVisitor(MyGrammerVisitor):
         return TreeReturn(ctx.typeName.text)
 
     def visitInitialExpr(self, ctx):
-        self.symbol_table.add_symbol(ctx.name.text, ctx.typeName.text)
-        # print('Symbol table')
-        # pp.pprint(self.symbol_table.get_symbol_table())
+        self.symbol_table.add_symbol(ctx.name.text, ctx.typeName.text, size=self.type_table.get_size(ctx.typeName.text))
+        print('Symbol table')
+        pp.pprint(self.symbol_table.get_symbol_table())
         if ctx.actualExpr:
             actual_type = self.visit(ctx.actualExpr)
             has_error = not check_types(actual_type, TreeReturn(ctx.typeName.text)) or actual_type.type == "Error"

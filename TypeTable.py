@@ -6,24 +6,28 @@ class TypeTable:
                 'inheritance': None,
                 'attributes': [],
                 'methods': ['abort', 'type_name', 'copy'],
+                'size': 0
             },
             'Int': {
                 'name': 'Int',
                 'inheritance': 'Object',
                 'attributes': [],
-                'methods': []
+                'methods': [],
+                'size': 32
             },
             'Bool': {
                 'name': 'Bool',
                 'inheritance': 'Object',
                 'attributes': [],
-                'methods': []
+                'methods': [],
+                'size': 1
             },
             'String': {
                 'name': 'String',
                 'inheritance': 'Object',
                 'attributes': [],
-                'methods': []
+                'methods': [],
+                'size': 64
             },
             'IO': {
                 'name': 'IO',
@@ -127,14 +131,25 @@ class TypeTable:
     def add_method(self, name, arguments, return_type):
         self.methods[name] = {'name': name, 'arguments': arguments, 'return_type': return_type}
 
-    def add_type(self, name, current_attributes, current_methods, inheritance=None):
-        self.classes[name] = {'name': name, 'attributes': current_attributes, 'methods': current_methods, 'inheritance': inheritance}
+    def add_type(self, name, current_attributes, current_methods, inheritance=None, size=0):
+        self.classes[name] = {
+            'name': name,
+            'attributes': current_attributes,
+            'methods': current_methods,
+            'inheritance': inheritance,
+            'size': size
+        }
 
     def add_argument(self, name, type):
         self.arguments[name] = {'name': name, 'type': type}
 
     def type_exists(self, name):
         return name in self.classes
+
+    def get_size(self, name):
+        if name in self.classes:
+            return self.classes[name]['size']
+        return 0
 
     def does_inherit(self, child, father):
         checking = True
