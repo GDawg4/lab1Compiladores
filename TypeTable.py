@@ -13,7 +13,7 @@ class TypeTable:
                 'inheritance': 'Object',
                 'attributes': [],
                 'methods': [],
-                'size': 32
+                'size': 8
             },
             'Bool': {
                 'name': 'Bool',
@@ -27,7 +27,7 @@ class TypeTable:
                 'inheritance': 'Object',
                 'attributes': [],
                 'methods': [],
-                'size': 64
+                'size': 8
             },
             'IO': {
                 'name': 'IO',

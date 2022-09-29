@@ -43,3 +43,9 @@ class SymbolTable:
             if name in i:
                 return i[name]['arguments']
         return []
+
+    def get_pointer(self, name):
+        for i in self.symbol_table:
+            if name in i:
+                return i[name]['pointer']
+        return 0
