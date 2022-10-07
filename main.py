@@ -237,6 +237,7 @@ class MyVisitor(MyGrammerVisitor):
         has_method_call = operations_result[0]
         result = operations_result[1]
         has_call = operations_result[2]
+        operator = operations_result[3]
         if ctx.nextExpr:
             if not has_method_call:
                 if result.type == "Error":
@@ -264,11 +265,13 @@ class MyVisitor(MyGrammerVisitor):
             if has_method_call:
                 new_label = self.get_new_label()
                 if has_call:
-                    return_type.code = f"{result.code}"
+                    code = f"{result.code}"
+                    return_type.code = code
                 else:
-                    return_type.code = f"{result.code}\n{new_label} = {return_type.addr} op {result.addr}"
+                    code = f"{result.code}\n{return_type.code}\n{new_label} = {return_type.addr} {operator} {result.addr}"
+                    return_type.code = code
                 return_type.addr = new_label
-                return return_type if not is_bool else TreeReturn("Bool")
+                return return_type if not is_bool else TreeReturn("Bool", addr=new_label, code=code)
             else:
                 if method_return:
                     return method_return if not is_bool else TreeReturn("Bool")
@@ -291,10 +294,11 @@ class MyVisitor(MyGrammerVisitor):
             return TreeReturn("Bool", addr=result, code="") if not is_bool else TreeReturn("Bool")
         if ctx.intE:
             if has_method_call:
+                # print(f"Result is {result}")
                 new_label = self.get_new_label()
-                code = f"{result.code}\n{new_label} = {ctx.intE.text} op {result.addr}"
+                code = f"{result.code}\n{new_label} = {ctx.intE.text} {operator} {result.addr}"
                 # print(f"THIS CODE GAVE {ctx.intE.text} op {result.addr}")
-                return TreeReturn("Int", addr=new_label, code=code) if not is_bool else TreeReturn("Bool", addr=new_label, code=code.split("=")[1])
+                return TreeReturn("Int", addr=new_label, code=code) if not is_bool else TreeReturn("Bool", addr=new_label, code=code)
             else:
                 return TreeReturn("Int", addr=ctx.intE.text, code="") if not is_bool else TreeReturn("Bool")
         if ctx.negation:
@@ -312,14 +316,18 @@ class MyVisitor(MyGrammerVisitor):
         return ctx.falseE.text
 
     def visitNotEmpty(self, ctx):
+        # print(f"{ctx} has")
         if ctx.rightSide:
+            operator = ctx.getChild(0).getText()
             result = self.visit(ctx.rightSide)
             if ctx.equal or ctx.lower or ctx.greater or ctx.lowerE or ctx.greaterE:
-                return True, TreeReturn("Bool", addr=result.addr), False
+                return True, TreeReturn("Bool", addr=result.addr, code=result.code), False, operator
+            else:
+                return True, TreeReturn("Int", addr=result.addr, code=result.code), False, operator
             return True, result, False
         if ctx.mCall:
             # print(f"MCall returned {self.visit(ctx.mCall)}")
-            return True, self.visit(ctx.mCall), True
+            return True, self.visit(ctx.mCall), True, ""
 
     def visitMethodCall(self, ctx):
         # print(f"Visiting {ctx.methodName.text}")
@@ -356,7 +364,7 @@ class MyVisitor(MyGrammerVisitor):
         return TreeReturn("Valid") if found else TreeReturn("Error")
 
     def visitEscape(self, ctx):
-        return False, TreeReturn("Escaped"), False
+        return False, TreeReturn("Escaped"), False, ""
 
     def visitParenExpr(self, ctx):
         return self.visit(ctx.expr())
@@ -367,7 +375,6 @@ class MyVisitor(MyGrammerVisitor):
         else_type = self.visit(ctx.elseExpr)
         if_label = self.get_new_if()
         else_label = self.get_new_if()
-        # print(f"{condition_type.code} GOTO {if_label}")
         # print(f"GOTO {else_label}")
         # print(f"IF:{then_type}")
         # print(f"{else_label}: {else_type.code}")
@@ -375,7 +382,7 @@ class MyVisitor(MyGrammerVisitor):
         has_then_error = check_types(then_type, TreeReturn("Error"))
         has_else_error = check_types(else_type, TreeReturn("Error"))
         return_label = self.get_new_label()
-        code = f"\n{condition_type.code} GOTO {if_label}\nGOTO {else_label}\n{if_label}:{then_type.code}\n{return_label}={then_type.addr}\n{else_label}:{else_type.code}\n{return_label}={else_type.addr}"
+        code = f"\n{condition_type.code}\n{condition_type.addr} GOTO {if_label}\nGOTO {else_label}\n{if_label}:{then_type.code}\n{return_label}={then_type.addr}\n{else_label}:{else_type.code}\n{return_label}={else_type.addr}"
         # code = ""
         has_error = has_if_error or has_then_error or has_else_error
         if has_if_error:
@@ -388,6 +395,7 @@ class MyVisitor(MyGrammerVisitor):
             return TreeReturn("Error")
         if check_types(else_type, then_type) and else_type.type != "Valid":
             else_type.code = code
+            else_type.addr = return_label
             return else_type
         return TreeReturn("Object", code=code, addr=return_label)
 
@@ -397,8 +405,10 @@ class MyVisitor(MyGrammerVisitor):
         has_cond_error = check_types(condition_type, TreeReturn("Error")) or not check_types(condition_type, TreeReturn("Bool"))
         has_main_error = check_types(main_type, TreeReturn("Error"))
         has_error = has_cond_error or has_main_error
+        while_cond_label = self.get_new_while()
         while_label = self.get_new_while()
-        code = f"\n{condition_type.code} GOTO {while_label}\n{while_label}:{main_type.code}\nGOTO {while_label}"
+        while_escape_label = self.get_new_while()
+        code = f"\n{while_cond_label}:\n{condition_type.code}\n{condition_type.addr} GOTO {while_label}\nGOTO {while_escape_label}\n{while_label}:{main_type.code}\nGOTO {while_cond_label}\n{while_escape_label}:"
         if has_cond_error:
             print(f"ERROR in line {ctx.start.line} conditional not Bool")
         if has_main_error:
@@ -438,7 +448,9 @@ class MyVisitor(MyGrammerVisitor):
                 return TreeReturn("Error")
         if ctx.fun:
             return_type = self.symbol_table.find_symbol(ctx.name.text)
-            parameters = self.visit(ctx.fun)
+            parameters_whole = self.visit(ctx.fun)
+            parameters = parameters_whole[0]
+            param_code = f"\n{parameters_whole[1]}"
             parameters_types = [self.symbol_table.find_symbol(i) for i in parameters]
             # print(f"Calling function {ctx.name.text} with parameters {parameters}")
             declared_params = []
@@ -456,7 +468,8 @@ class MyVisitor(MyGrammerVisitor):
             is_correct = has_correct_types and has_correct_length
             if not is_correct:
                 print(f"ERROR in line {ctx.start.line} function {ctx.name.text} has wrong signature")
-            return TreeReturn(return_type, code=f"\nCALL {ctx.name.text}")
+            return_label = self.get_new_label()
+            return TreeReturn(return_type, code=f"\n{param_code}\n{return_label} = CALL, {len(parameters)} {ctx.name.text}\n", addr=return_label)
         if not (ctx.attr or ctx.fun):
             offset = self.symbol_table.get_pointer(ctx.name.text)
             return TreeReturn(self.symbol_table.find_symbol(ctx.name.text), addr=f"B[{offset}]", code="")
@@ -464,16 +477,23 @@ class MyVisitor(MyGrammerVisitor):
 
     def visitFunCall(self, ctx):
         arguments = []
+        code = "\n"
         for oneExpr in ctx.expr():
-            arguments.append(self.visit(oneExpr).type)
-        return arguments
+            result = self.visit(oneExpr)
+            code += f"{result.code}\nparam {result.addr}"
+            arguments.append(result.type)
+        return arguments, code
 
     def visitLetExpr(self, ctx):
         self.symbol_table.add_scope()
+        code = "\n"
         exprs = []
         for argExpr in ctx.initialExpr():
-            exprs.append(self.visit(argExpr))
+            arg_result = self.visit(argExpr)
+            code += f"{arg_result.code}"
+            exprs.append(arg_result)
         result = self.visit(ctx.mainExpr)
+        result.code = f"{code}\n{result.code}"
         values = check_types(result, TreeReturn("Error"))
         self.symbol_table.remove_scope()
         return TreeReturn("Error") if values else result
@@ -492,7 +512,7 @@ class MyVisitor(MyGrammerVisitor):
             has_error = not check_types(actual_type, TreeReturn(ctx.typeName.text)) or actual_type.type == "Error"
             if has_error:
                 print(f"ERROR in line {ctx.start.line} declared type does not match actual type")
-            return TreeReturn("Error") if has_error else TreeReturn("Valid")
+            return TreeReturn("Error") if has_error else TreeReturn("Valid", code=f"{actual_type.code}\nB[{self.symbol_table.get_pointer(ctx.name.text)}]={actual_type.addr}", addr=actual_type.addr)
         return TreeReturn("Valid")
 
     def visitAttrWrite(self, ctx):
