@@ -10,7 +10,10 @@ class SymbolTable:
         return self.symbol_table[-1]
 
     def add_scope(self):
-        self.symbol_table.append({})
+        self.symbol_table.append({
+            'pointer': 0,
+            'label': 0
+        })
 
     def add_symbol(self, name, type_name, arguments=None, size=0):
         self.symbol_table[-1][name] = {
@@ -18,9 +21,9 @@ class SymbolTable:
             'type': type_name,
             'arguments': arguments,
             'size': size,
-            'pointer': self.pointer
+            'pointer': self.symbol_table[-1]['pointer']
         }
-        self.pointer += size
+        self.symbol_table[-1]['pointer'] += size
 
     def remove_scope(self):
         self.symbol_table.pop()
@@ -49,3 +52,8 @@ class SymbolTable:
             if name in i:
                 return i[name]['pointer']
         return 0
+
+    def get_new_label(self):
+        new_label = f"t{self.symbol_table[-1]['label']}"
+        self.symbol_table[-1]['label'] += 1
+        return new_label
