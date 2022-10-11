@@ -326,6 +326,9 @@ class MyVisitor(MyGrammerVisitor):
             result = self.visit(ctx.negation)
             if not check_types(result, TreeReturn("Int")):
                 print(f"ERROR in line {ctx.start.line} expected Int, got {result.type}")
+            new_label = self.get_new_label()
+            result.code = f"{result.code}\n{new_label} = NOT {result.addr}"
+            result.addr = new_label
             return result if not is_bool else TreeReturn("Bool")
         if ctx.selfE:
             new_label = self.get_new_label()
@@ -375,8 +378,8 @@ class MyVisitor(MyGrammerVisitor):
         for actual_return in actual_returns:
             param_code += f"{actual_return.code}\nparam {actual_return.addr}\n"
         # print(f"Final code {param_code}")
-        if not has_correct_args:
-            print(f"ERROR in line {ctx.start.line} method {ctx.methodName.text} has incorrect arguments")
+        # if not has_correct_args:
+            # print(f"ERROR in line {ctx.start.line} method {ctx.methodName.text} has incorrect arguments")
         # print(f"Returning method {ctx.methodName.text}, {self.type_table.get_methods()[ctx.methodName.text]['return_type']}")
         # print(f"Method {ctx.methodName.text} has arguments {method_arguments} of type {method_types} and actual args {actual_types} and is correct: {has_correct_args}")
         new_label = self.get_new_label()
@@ -406,7 +409,8 @@ class MyVisitor(MyGrammerVisitor):
         has_then_error = check_types(then_type, TreeReturn("Error"))
         has_else_error = check_types(else_type, TreeReturn("Error"))
         return_label = self.get_new_label()
-        code = f"\n{condition_type.code}\n{condition_type.addr} GOTO {if_label}\nGOTO {else_label}\n{if_label}:{then_type.code}\n{return_label}={then_type.addr}\n{else_label}:{else_type.code}\n{return_label}={else_type.addr}"
+        next_label = self.get_new_if()
+        code = f"\n{condition_type.code}\n{condition_type.addr} GOTO {if_label}\nGOTO {else_label}\n{if_label}:{then_type.code}\nGOTO {next_label}\n{return_label}={then_type.addr}\n{else_label}:{else_type.code}\n{return_label}={else_type.addr}\n{next_label}:"
         # code = ""
         has_error = has_if_error or has_then_error or has_else_error
         if has_if_error:

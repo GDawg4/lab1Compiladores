@@ -1,5 +1,5 @@
 class TreeReturn:
-    def __init__(self, return_type, addr=None, code=None):
+    def __init__(self, return_type, addr=None, code=""):
         self.type = return_type
         self.addr = addr
         self.code = code
